@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulir Pendaftaran Tahap Ketiga</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/frontend/src/pages/user/css/form3.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
+</head>
+<body>
+    <div id="navbar"></div>
+    <div class="progress-bar">
+        <div class="step">
+            <span class="step-label">TAHAP 1</span>
+        </div>
+        <div class="step">
+            <span class="step-label">TAHAP 2</span>
+        </div>
+        <div class="step active">
+            <span class="step-label">TAHAP 3</span>
+        </div>
+    </div>
+    <div class="form-container">
+        <h1>Formulir Pendaftaran Tahap Ketiga</h1>
+        <form id="registrationForm">
+            <!-- Scan KTM -->
+            <div class="form-group">
+                <label for="scan_ktm" class="file-upload-label">
+                    Scan KTM atau indentitas lainya
+                    <i class="fas fa-upload"></i>
+                </label>
+                <input type="file" id="scan_ktm" name="scan_ktm" accept=".pdf,.jpg,.jpeg,.png" required>
+                <small class="file-info">Format: PDF/JPG/PNG, Maks: 2MB</small>
+            </div>
+            <!-- Scan KHS -->
+            <div class="form-group">
+                <label for="scan_khs" class="file-upload-label">
+                    Scan KHS
+                    <i class="fas fa-upload"></i>
+                </label>
+                <input type="file" id="scan_khs" name="scan_khs" accept=".pdf,.jpg,.jpeg,.png" required>
+                <small class="file-info">Format: PDF/JPG/PNG, Maks: 2MB</small>
+            </div>
+            <!-- Surat Motivasi -->
+            <div class="form-group">
+                <label for="motivation_letter" class="file-upload-label">
+                    Surat Motivasi
+                    <i class="fas fa-upload"></i>
+                </label>
+                <input type="file" id="motivation_letter" name="motivation_letter" accept=".pdf" required>
+                <small class="file-info">Format: PDF, Maks: 2MB</small>
+            </div>
+            <!-- CV -->
+            <div class="form-group">
+                <label for="cv" class="file-upload-label">
+                    CV
+                    <i class="fas fa-upload"></i>
+                </label>
+                <input type="file" id="cv" name="cv" accept=".pdf" required>
+                <small class="file-info">Format: PDF, Maks: 2MB</small>
+            </div>
+            <div class="button-group">
+                <button type="button" onclick="window.history.back()">Kembali</button>
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+    <script src="/frontend/src/utils/navbar/navbar.js"></script>
+    <script src="/frontend/src/pages/user/js/auth.js"></script>
+    <script src="/frontend/src/pages/user/js/form_daftar3.js"></script>
+    <script src="/frontend/src/pages/user/js/pendaftaran.js"></script>
+</body>
+</html>

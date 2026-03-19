@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Dashboard Super Admin</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+</head>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+    <!-- Navbar -->
+    <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+        <!-- Left navbar links -->
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+            </li>
+        </ul>
+
+        <!-- Right navbar links -->
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+                    <i class="fas fa-expand-arrows-alt"></i>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/index.html" role="button">
+                    <i class="fas fa-sign-out-alt"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Sidebar Container -->
+    <aside class="main-sidebar sidebar-dark-primary elevation-4">
+        <!-- Brand Logo -->
+        <a href="index3.html" class="brand-link">
+            <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <span class="brand-text font-weight-light">SIGMA</span>
+        </a>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <!-- Sidebar user panel (optional) -->
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                <div class="image">
+                    <img src="/frontend/public/assets/super_admin.png" class="img-circle elevation-2" alt="User Image">
+                </div>
+                <div class="info">
+                    <a href="#" class="d-block" id="username-display">Super Admin</a>
+                </div>
+            </div>
+
+            <!-- Sidebar Menu -->
+            <nav class="mt-2">
+                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                    <li class="nav-item">
+                        <a href="dashboard.html" class="nav-link active">
+                            <i class="nav-icon fas fa-tachometer-alt"></i>
+                            <p>Dashboard</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="mahasiswa.html" class="nav-link">
+                            <i class="nav-icon fas fa-users"></i>
+                            <p>Mahasiswa</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="ukm.html" class="nav-link">
+                            <i class="nav-icon fas fa-star"></i>
+                            <p>UKM</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="user.html" class="nav-link">
+                            <i class="nav-icon fas fa-user"></i>
+                            <p>User Login</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="periode_kepengurusan.html" class="nav-link">
+                            <i class="nav-icon fas fa-calendar-alt"></i>
+                            <p>Periode Kepengurusan</p>
+                        </a>
+                      </li>
+                </ul>
+            </nav>
+        </div>
+    </aside>
+
+    <!-- Content Wrapper -->
+    <div class="content-wrapper">
+        <!-- Content Header -->
+        <div class="content-header">
+            <div class="container-fluid">
+                <div class="row mb-2">
+                    <div class="col-sm-6">
+                        <h1 class="m-0">Dashboard</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main content -->
+        <div class="content">
+            <div class="container-fluid">
+                <!-- Stats boxes row -->
+                <div class="row">
+                    <div class="col-lg-4 col-6">
+                        <div class="small-box bg-info">
+                            <div class="inner">
+                                <h3 id="total-mahasiswa">0</h3>
+                                <p>Total Mahasiswa</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <a href="mahasiswa.html" class="small-box-footer">
+                                More info <i class="fas fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-6">
+                        <div class="small-box bg-success">
+                            <div class="inner">
+                                <h3 id="total-ukm">0</h3>
+                                <p>Total UKM</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <a href="ukm.html" class="small-box-footer">
+                                More info <i class="fas fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4 col-6">
+                        <div class="small-box bg-warning">
+                            <div class="inner">
+                                <h3 id="total-user">0</h3>
+                                <p>Total User</p>
+                            </div>
+                            <div class="icon">
+                                <i class="fas fa-user"></i>
+                            </div>
+                            <a href="user.html" class="small-box-footer">
+                                More info <i class="fas fa-arrow-circle-right"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts row -->
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header border-0">
+                                <h3 class="card-title">Jumlah Anggota per UKM</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="position-relative mb-4">
+                                    <canvas id="ukm-chart" height="300"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-6">
+                        <div class="card">
+                            <div class="card-header border-0">
+                                <h3 class="card-title">Pertumbuhan Anggota per Tahun</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="position-relative mb-4">
+                                    <canvas id="yearly-members-chart" height="300"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Events Chart -->
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="card">
+                            <div class="card-header border-0">
+                                <h3 class="card-title">Jumlah Event per Tahun</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="position-relative mb-4">
+                                    <canvas id="yearly-events-chart" height="300"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <strong>Copyright &copy; 2024 <a href="#">SIGMA</a>.</strong>
+        All rights reserved.
+    </footer>
+</div>
+
+<!-- Required Scripts -->
+<script src="plugins/jquery/jquery.min.js"></script>
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="dist/js/adminlte.js"></script>
+<script src="plugins/chart.js/Chart.min.js"></script>
+
+<script>
+$(function () {
+    // Get logged in user
+    const username = localStorage.getItem('username');
+    if (username) {
+        $('#username-display').text(username);
+    }
+
+    // Load dashboard stats
+    $.get('/backend/controllers/admin/dashboard.php?action=get_stats', function(response) {
+        try {
+            const data = typeof response === 'string' ? JSON.parse(response) : response;
+            if (data.status === 'success' && data.data) {
+                animateNumber('#total-mahasiswa', parseInt(data.data.total_mahasiswa) || 0);
+                animateNumber('#total-ukm', parseInt(data.data.total_ukm) || 0);
+                const totalUsers = data.data.users_by_role.reduce((acc, curr) => 
+                    acc + parseInt(curr.total), 0);
+                animateNumber('#total-user', totalUsers);
+            }
+        } catch (error) {
+            console.error('Error processing response:', error);
+        }
+    });
+
+  // Load UKM Members Chart with different colors
+    $.get('/backend/controllers/admin/dashboard.php?action=get_ukm_members', function(response) {
+        if (typeof response === 'string') {
+            response = JSON.parse(response);
+        }
+
+        if (response.status === 'success' && document.getElementById('ukm-chart')) {
+            const ukmData = {
+                labels: response.data.map(item => item.nama_ukm),
+                data: response.data.map(item => parseInt(item.total_anggota))
+            };
+
+            const colors = [
+                '#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF', 
+                '#FF9F40', '#7CBA3B', '#EC932F', '#3B7FBA', '#BA3B7F', 
+                '#3BBA7C', '#BA3B3B'
+            ];
+
+            new Chart($('#ukm-chart').get(0).getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: ukmData.labels,
+                    datasets: [{
+                        label: 'Jumlah Anggota',
+                        data: ukmData.data,
+                        backgroundColor: ukmData.labels.map((_, index) => colors[index % colors.length]),
+                        borderColor: ukmData.labels.map((_, index) => colors[index % colors.length]),
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    legend: {
+                        display: false
+                    },
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        }
+    });
+
+
+    // Load Yearly Members Chart
+    $.get('/backend/controllers/admin/dashboard.php?action=get_yearly_members', function(response) {
+        if (typeof response === 'string') {
+            response = JSON.parse(response);
+        }
+
+        if (response.status === 'success' && document.getElementById('yearly-members-chart')) {
+            const yearlyData = {
+                labels: response.data.map(item => item.tahun),
+                data: response.data.map(item => parseInt(item.jumlah_anggota))
+            };
+
+            new Chart($('#yearly-members-chart').get(0).getContext('2d'), {
+                type: 'line',
+                data: {
+                    labels: yearlyData.labels,
+                    datasets: [{
+                        label: 'Jumlah Anggota',
+                        data: yearlyData.data,
+                        borderColor: '#36A2EB',
+                        backgroundColor: 'rgba(54, 162, 235, 0.1)',
+                        borderWidth: 2,
+                        fill: true
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        }
+    });
+
+    // Load Yearly Events Chart
+    $.get('/backend/controllers/admin/dashboard.php?action=get_yearly_events', function(response) {
+        if (typeof response === 'string') {
+            response = JSON.parse(response);
+        }
+
+        if (response.status === 'success' && document.getElementById('yearly-events-chart')) {
+            const eventData = {
+                labels: response.data.map(item => item.tahun),
+                data: response.data.map(item => parseInt(item.jumlah_event))
+            };
+
+            new Chart($('#yearly-events-chart').get(0).getContext('2d'), {
+                type: 'bar',
+                data: {
+                    labels: eventData.labels,
+                    datasets: [{
+                        label: 'Jumlah Event',
+                        data: eventData.data,
+                        backgroundColor: '#4BC0C0',
+                        borderColor: '#4BC0C0',
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    responsive: true,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        }
+    });
+});
+
+function animateNumber(elementId, endValue) {
+    endValue = parseInt(endValue) || 0;
+    
+    $(elementId).prop('Counter', 0).animate({
+        Counter: endValue
+    }, {
+        duration: 1000,
+        easing: 'swing',
+        step: function(now) {
+            $(elementId).text(Math.ceil(now));
+        },
+        complete: function() {
+            $(elementId).text(endValue);
+        }
+    });
+}
+</script>
+</body>
+</html>

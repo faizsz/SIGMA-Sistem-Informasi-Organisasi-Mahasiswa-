@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulir Pendaftaran Tahap Kedua</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/frontend/src/pages/user/css/form2.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
+</head>
+<body>
+    <div id="navbar"></div>
+    <div class="progress-bar">
+        <div class="step">
+            <span class="step-label">TAHAP 1</span>
+        </div>
+        <div class="step active">
+            <span class="step-label">TAHAP 2</span>
+        </div>
+        <div class="step">
+            <span class="step-label">TAHAP 3</span>
+        </div>
+    </div>
+    <div class="form-container">
+        <h1>Formulir Pendaftaran Tahap Kedua</h1>
+        <form id="registrationForm" enctype="multipart/form-data">
+            <!-- Pilihan Divisi 1 -->
+            <div class="form-group">
+                <label for="divisi1">Divisi Pilihan 1</label>
+                <select class="form-control" id="divisi1" name="divisi_pilihan_1" required>
+                    <option value="" disabled selected>Pilih Divisi</option>
+                </select>
+            </div>
+            <!-- Pilihan Divisi 2 -->
+            <div class="form-group">
+                <label for="divisi2">Divisi Pilihan 2</label>
+                <select class="form-control" id="divisi2" name="divisi_pilihan_2" required>
+                    <option value="" disabled selected>Pilih Divisi</option>
+                </select>
+            </div>
+            <!-- Upload Surat Pernyataan Izin Ortu -->
+            <div class="form-group">
+                <label for="izin_ortu" class="file-upload-label">
+                    Surat Pernyataan Izin Ortu
+                    <i class="fas fa-upload"></i>
+                </label>
+                <input type="file" id="izin_ortu" name="surat_izin" accept=".pdf,.jpg,.jpeg,.png" required>
+                <small class="file-info">Format: PDF/JPG/PNG, Maks: 2MB</small>
+            </div>
+            <!-- Upload Sertifikat WaRna/Pesima/LDK -->
+            <div class="form-group">
+                <label for="sertifikat_wa_rna" class="file-upload-label">
+                    Sertifikat WaRna/Pesima/LDK
+                    <i class="fas fa-upload"></i>
+                </label>
+                <input type="file" id="sertifikat_wa_rna" name="sertifikat_warna" accept=".pdf,.jpg,.jpeg,.png" required>
+                <small class="file-info">Format: PDF/JPG/PNG, Maks: 2MB</small>
+            </div>
+            <!-- Upload Sertifikat LKMM -->
+            <div class="form-group">
+                <label for="sertifikat_lkmm" class="file-upload-label">
+                    Sertifikat LKMM Dasar/Pendas/LKMM Madya
+                    <i class="fas fa-upload"></i>
+                </label>
+                <input type="file" id="sertifikat_lkmm" name="sertifikat_lkmm" accept=".pdf,.jpg,.jpeg,.png" required>
+                <small class="file-info">Format: PDF/JPG/PNG, Maks: 2MB</small>
+            </div>
+            <div class="button-group">
+                <button type="submit">Submit</button>
+            </div>
+        </form>
+    </div>
+    <script src="/frontend/src/utils/navbar/navbar.js"></script>
+    <script src="/frontend/src/pages/user/js/auth.js"></script>
+    <script src="/frontend/src/pages/user/js/form_daftar2.js"></script>
+    <script src="/frontend/src/pages/user/js/pendaftaran.js"></script>
+</body>
+</html>

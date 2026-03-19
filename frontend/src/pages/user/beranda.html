@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Informasi Organisasi Mahasiswa</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/src/styles/user/beranda.css">
+    <link rel="icon" href="/frontend/public/assets/logo-sigma.png" type="image/png">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-brand">
+            <img src="/frontend/public/assets/sigma_nav.png" class="nav-logo">
+        </div>
+        <div class="hamburger">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+        <ul class="nav-menu">
+            <li class="nav-item">
+                <a href="/frontend/src/pages/user/beranda.html" class="nav-link">Beranda</a>
+            </li>
+            <li class="nav-item">
+                <a href="/frontend/src/pages/user/UKM.html" class="nav-link">UKM</a>
+            </li>
+            <li class="nav-item">
+                <a href="/frontend/src/pages/user/profile.html" class="nav-link">Profil</a>
+            </li>
+        </ul>
+    </nav>
+
+        <!-- Hero Section -->
+        <section class="gambar-utama">
+            <img src="/frontend/public/assets/13.png" alt="Selamat Datang" class="hero-image">
+            <div class="overlay"></div>
+            <div class="welcome-text">
+                <h1>Selamat Datang di SIGMA</h1>
+                <h2>Sistem Informasi Organisasi Mahasiswa</h2>
+            </div>
+        </section>
+
+               <!-- Event Section -->
+        <section class="event-section">
+            <div class="event-title">
+                <h2>EVENT</h2>
+            </div>
+
+            <div class="event-container">
+                <div class="event-card left">
+                    <div class="event-info">
+                        <h3><span class="highlight">WIBU</span>MEET</h3>
+                        <p>Wibu Meet adalah sebuah acara khusus bagi para penggemar budaya Jepang, di mana mereka bisa berkumpul, berbagi minat, dan memperdalam pengetahuan tentang anime, manga, serta hal-hal terkait dunia wibu. Acara ini juga dirancang untuk mempertemukan komunitas dengan berbagai latar belakang, memperluas jaringan, dan menambah wawasan dalam bidang yang digemari.</p>
+                        <div class="period">
+                            <span class="period-label">PERIOD</span>
+                            <span class="period-date">2022-01-16</span>
+                        </div>
+                        <div class="tags">
+                            <span class="tag software">Anime</span>
+                            <span class="tag multimedia">Manga</span>
+                            <span class="tag network">Culture</span>
+                        </div>
+                    </div>
+                    <div class="event-image">
+                        <img src="/frontend/public/assets/event.webp" alt="Wibu Meet">
+                    </div>
+                </div>
+
+                <!-- PCC Class (Right) -->
+                <div class="event-card right">
+                    <div class="event-image">
+                        <img src="/frontend/public/assets/event.jpg" alt="PCC Class">
+                    </div>
+                    <div class="event-info">
+                        <h3><span class="highlight">PCC</span>CLASS</h3>
+                        <p>PCC Class adalah program pelatihan intensif untuk memberikan keterampilan dasar dan lanjutan dalam bidang teknologi informasi dan komunikasi, yang mencakup pengembangan perangkat lunak, multimedia, dan jaringan. Acara ini bertujuan untuk meningkatkan kompetensi mahasiswa dalam dunia digital.</p>
+                        <div class="period">
+                            <span class="period-label">PERIOD</span>
+                            <span class="period-date">2023-02-20</span>
+                        </div>
+                        <div class="tags">
+                            <span class="tag software">Software</span>
+                            <span class="tag multimedia">Multimedia</span>
+                            <span class="tag network">Network</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Galeri Kegiatan Section -->
+        <div class="gallery-section">
+            <div class="carousel-container">
+                <div class="carousel-track">
+                    <div class="carousel-slide">
+                        <img src="/frontend/public/assets/pengajian.jpg" alt="Kegiatan 1">
+                        <div class="slide-description">
+                            <h3>MAKRAB AWAL</h3>
+                            <p>Acara keluargaan untuk menjalin kerukunan dan saling mengenal antar pengurus UKM PCC.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide active">
+                        <img src="/frontend/public/assets/mkrb.jpg" alt="Kegiatan 2">
+                        <div class="slide-description">
+                            <h3>OPEN HOUSE</h3>
+                            <p>Memperkenalkan lebih dalam UKM PCC dan kegiatan-kegiatannya kepada calon anggota.</p>
+                        </div>
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="/frontend/public/assets/warna.jpg" alt="Kegiatan 3">
+                        <div class="slide-description">
+                            <h3>PENDAS & PAB</h3>
+                            <p>Memberikan pendidikan dasar dan pembekalan kepada calon anggota aktif UKM PCC.</p>
+                        </div>
+                    </div>
+                </div>
+                <button class="carousel-button prev">&lt;</button>
+                <button class="carousel-button next">&gt;</button>
+            </div>
+        </div>
+
+    <footer id="footer-container"></footer>
+    <script src="/frontend/src/utils/footer/footer.js"></script>
+    <script src="/frontend/src/pages/user/js/event-old.js"></script>
+    <script src="/frontend/src/pages/user/js/event.js"></script>
+    <script src="/frontend/src/pages/user/js/auth.js"></script>
+</body>
+</html>

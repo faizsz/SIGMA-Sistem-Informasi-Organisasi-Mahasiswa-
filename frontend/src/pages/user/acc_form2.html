@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tahapan Kedua Telah Selesai</title>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/frontend/src/pages/user/css/acc_form.css">
+    <style>
+        .modal-trigger {
+            background: #4263EB;
+            color: white;
+            padding: 8px 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 10px 0;
+            font-size: 14px;
+        }
+        
+        .modal-trigger:hover {
+            background: #3651c9;
+        }
+        
+        .modal-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+        }
+        
+        .modal-title {
+            color: #4263EB;
+            font-size: 1.2em;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .modal-body {
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            min-height: 60px;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            color: #666;
+        }
+        
+        .modal-close:hover {
+            color: #333;
+        }
+        
+        .no-catatan {
+            color: #6c757d;
+            font-style: italic;
+        }
+        </style>
+</head>
+<body>
+    <div id="navbar"></div>
+
+    <div class="progress-bar">
+        <div class="step">
+            <span class="step-label">TAHAP 1</span>
+        </div>
+        <div class="step active">
+            <span class="step-label">TAHAP 2</span>
+        </div>
+        <div class="step">
+            <span class="step-label">TAHAP 3</span>
+        </div>
+    </div>
+
+    <div class="success-container">
+        <div class="success-content">
+            <h1 class="success-title">Tahapan Kedua Telah Selesai</h1>
+            <p class="success-message">Berkas Anda telah dikonfirmasi oleh Admin UKM, silakan lanjutkan ke tahap berikutnya!</p>
+        </div>
+        <svg class="success-illustration" viewBox="0 0 500 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="150" y="100" width="200" height="250" rx="10" fill="#f8f9fa" stroke="#4263EB" stroke-width="2"/>
+            <line x1="180" y1="150" x2="320" y2="150" stroke="#dee2e6" stroke-width="2"/>
+            <line x1="180" y1="180" x2="320" y2="180" stroke="#dee2e6" stroke-width="2"/>
+            <line x1="180" y1="210" x2="320" y2="210" stroke="#dee2e6" stroke-width="2"/>
+            <circle cx="380" cy="120" r="30" fill="#4263EB"/>
+            <path d="M370 120L380 130L395 115" stroke="white" stroke-width="3"/>
+            <path d="M200 300L220 350L240 330" fill="none" stroke="#4263EB" stroke-width="2"/>
+            <circle cx="220" cy="400" r="20" fill="#4263EB" opacity="0.1"/>
+            <rect x="180" y="270" width="40" height="60" rx="5" fill="#4263EB"/>
+            <circle cx="200" cy="260" r="15" fill="#4263EB"/>
+        </svg>
+    </div>
+
+    <button class="modal-trigger" onclick="openCatatanModal()">
+        Lihat Catatan Admin
+    </button>
+    <div id="catatanModal" class="modal-container">
+        <div class="modal-content">
+            <button class="modal-close" onclick="closeCatatanModal()">×</button>
+            <div class="modal-title">Catatan dari Admin UKM</div>
+            <div class="modal-body">
+                <p id="catatanAdmin">Memuat catatan...</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Link will be updated by JavaScript -->
+    <a id="nextStageLink">
+        <button class="btn-next-stage">Lanjutkan ke tahap selanjutnya</button>
+    </a>
+    
+
+    <script src="/frontend/src/utils/navbar/navbar.js"></script>
+    <script src="/frontend/src/pages/user/js/auth.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
+    <script src="/frontend/src/pages/user/js/pendaftaran.js"></script>
+    <script>
+        // Get id_ukm from URL parameters
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id_ukm = urlParams.get('id_ukm');
+            
+            // Update the link with id_ukm parameter
+            const nextStageLink = document.getElementById('nextStageLink');
+            if (id_ukm) {
+                nextStageLink.href = `/frontend/src/pages/user/form_daftar3.html?id_ukm=${id_ukm}`;
+            } else {
+                // Redirect to home page or show error if no id_ukm
+                nextStageLink.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    alert('ID UKM tidak ditemukan');
+                    window.location.href = '/frontend/src/pages/user/UKM.html';
+                });
+            }
+        });
+    </script>
+     <script>
+        document.addEventListener('DOMContentLoaded', async function() {
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const id_ukm = urlParams.get('id_ukm');
+                
+                if (!id_ukm) {
+                    throw new Error('ID UKM tidak ditemukan');
+                }
+        
+                const response = await fetch(`/backend/controllers/mahasiswa/cek-status-pendaftaran.php?id_ukm=${id_ukm}`);
+                const data = await response.json();
+        
+                const catatanElement = document.getElementById('catatanAdmin');
+                
+                if (data.status === 'success' && data.data.catatan) {
+                    catatanElement.textContent = data.data.catatan;
+                } else {
+                    catatanElement.innerHTML = '<span class="no-catatan">Tidak ada catatan dari admin</span>';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('catatanAdmin').innerHTML = 
+                    '<span class="no-catatan">Gagal memuat catatan</span>';
+            }
+        });
+    </script>
+    <script>
+        // Fungsi untuk membuka modal
+        function openCatatanModal() {
+            const modal = document.getElementById('catatanModal');
+            modal.style.display = 'flex';
+            
+            // Ambil catatan hanya saat modal dibuka
+            fetchCatatan();
+        }
+        
+        // Fungsi untuk menutup modal
+        function closeCatatanModal() {
+            const modal = document.getElementById('catatanModal');
+            modal.style.display = 'none';
+        }
+        
+        // Fungsi untuk mengambil catatan dari server
+        async function fetchCatatan() {
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const id_ukm = urlParams.get('id_ukm');
+                
+                if (!id_ukm) {
+                    throw new Error('ID UKM tidak ditemukan');
+                }
+        
+                const response = await fetch(`/backend/controllers/mahasiswa/cek-status-pendaftaran.php?id_ukm=${id_ukm}`);
+                const data = await response.json();
+        
+                const catatanElement = document.getElementById('catatanAdmin');
+                
+                if (data.status === 'success' && data.data.catatan) {
+                    catatanElement.textContent = data.data.catatan;
+                } else {
+                    catatanElement.innerHTML = '<span class="no-catatan">Tidak ada catatan dari admin</span>';
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                document.getElementById('catatanAdmin').innerHTML = 
+                    '<span class="no-catatan">Gagal memuat catatan</span>';
+            }
+        }
+        
+        // Tutup modal jika user klik di luar modal
+        window.onclick = function(event) {
+            const modal = document.getElementById('catatanModal');
+            if (event.target === modal) {
+                closeCatatanModal();
+            }
+        }
+    </script>
+</body>
+</html>

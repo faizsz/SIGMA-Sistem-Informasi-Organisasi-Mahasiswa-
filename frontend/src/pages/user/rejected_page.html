@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #c4a8a8 0%, #f9e5db 100%);
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 3rem auto;
+            padding: 3rem;
+            text-align: center;
+            background: rgb(245, 228, 228);
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(to right, #ff6b6b, #f06595);
+        }
+
+        .top-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 2rem;
+            background: #fff1f3;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .icon-wrapper {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 2rem;
+            background: #fff1f3;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .icon {
+            font-size: 3rem;
+            color: #ff6b6b;
+        }
+
+        h1 {
+            color: #343a40;
+            font-size: 2rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+
+        .message {
+            color: #495057;
+            font-size: 1.1rem;
+            line-height: 1.6;
+            margin-bottom: 2rem;
+        }
+
+        .btn-home {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background-color: #4263eb;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin-bottom: 1rem;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-home:hover {
+            background-color: #364fc7;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(66, 99, 235, 0.2);
+        }
+
+        .btn-notes {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background-color: #e9ecef;
+            color: #495057;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 1px solid #dee2e6;
+            cursor: pointer;
+        }
+
+        .btn-notes:hover {
+            background-color: #dee2e6;
+        }
+
+        .modal-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            backdrop-filter: blur(4px);
+        }
+
+        .modal-content {
+            position: relative;
+            background-color: white;
+            margin: 15% auto;
+            padding: 2rem;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 16px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+            transform: translateY(20px);
+            animation: modalSlideUp 0.3s ease forwards;
+        }
+
+        @keyframes modalSlideUp {
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        .modal-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #343a40;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .modal-body {
+            color: #495057;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 1.5rem;
+            cursor: pointer;
+            border: none;
+            background: none;
+            color: #adb5bd;
+            transition: color 0.3s ease;
+        }
+
+        .close-btn:hover {
+            color: #495057;
+        }
+
+        .sad-face {
+            width: 200px;
+            height: 200px;
+            margin: 0 auto 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div id="navbar"></div>
+
+    <div class="container">
+        <!-- Mengganti icon di atas dengan ilustrasi sedih yang lebih baik -->
+        <svg class="top-icon" viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="#FFE0E3"/>
+            <circle cx="35" cy="40" r="5" fill="#FF6B6B"/>
+            <circle cx="65" cy="40" r="5" fill="#FF6B6B"/>
+            <path d="M30 65 Q50 55 70 65" stroke="#FF6B6B" stroke-width="4" fill="none"/>
+        </svg>
+
+        <div class="sad-face">
+            <svg viewBox="0 0 200 200" fill="none">
+                <circle cx="100" cy="100" r="80" fill="#f8f9fa"/>
+                <path d="M60 130C60 130 80 110 100 110C120 110 140 130 140 130" 
+                      stroke="#ff6b6b" stroke-width="8" stroke-linecap="round"/>
+                <circle cx="70" cy="80" r="8" fill="#ff6b6b"/>
+                <circle cx="130" cy="80" r="8" fill="#ff6b6b"/>
+            </svg>
+        </div>
+
+        <h1>Maaf, Anda Tidak Lolos</h1>
+        <p class="message">Mohon maaf, Anda belum berhasil dalam seleksi UKM kali ini. Tetap semangat dan coba lagi di kesempatan berikutnya! Setiap kegagalan adalah langkah menuju kesuksesan.</p>
+        
+        <a href="/frontend/src/pages/user/UKM.html" class="btn-home">Kembali ke Beranda</a>
+        <br>
+        <button onclick="showCatatan()" class="btn-notes">Lihat Catatan Admin</button>
+    </div>
+
+    <div id="catatanModal" class="modal-container">
+        <div class="modal-content">
+            <button class="close-btn" onclick="hideCatatan()">&times;</button>
+            <div class="modal-title">Catatan dari Admin UKM</div>
+            <div class="modal-body" id="catatanText">Memuat catatan...</div>
+        </div>
+    </div>
+
+    <script>
+        // Script tetap sama seperti sebelumnya
+        document.addEventListener('DOMContentLoaded', async function() {
+            // Fungsi untuk menampilkan modal catatan
+            async function showCatatan() {
+                const modal = document.getElementById('catatanModal');
+                const catatanText = document.getElementById('catatanText');
+                
+                try {
+                    const urlParams = new URLSearchParams(window.location.search);
+                    const id_ukm = urlParams.get('id_ukm');
+                    
+                    if (!id_ukm) {
+                        throw new Error('ID UKM tidak ditemukan');
+                    }
+            
+                    const response = await fetch(`/backend/controllers/mahasiswa/cek-status-pendaftaran.php?id_ukm=${id_ukm}`);
+                    const data = await response.json();
+            
+                    if (data.status === 'success' && data.data.catatan) {
+                        catatanText.textContent = data.data.catatan;
+                    } else {
+                        catatanText.textContent = 'Tidak ada catatan dari admin.';
+                    }
+                } catch (error) {
+                    console.error('Error:', error);
+                    catatanText.textContent = 'Gagal memuat catatan';
+                }
+                
+                modal.style.display = 'block';
+            }
+
+            // Fungsi untuk menyembunyikan modal
+            function hideCatatan() {
+                const modal = document.getElementById('catatanModal');
+                modal.style.display = 'none';
+            }
+
+            // Event handlers
+            window.showCatatan = showCatatan;
+            window.hideCatatan = hideCatatan;
+
+            // Tutup modal jika user klik di luar modal
+            window.onclick = function(event) {
+                const modal = document.getElementById('catatanModal');
+                if (event.target == modal) {
+                    hideCatatan();
+                }
+            }
+        });
+    </script>
+    <script src="/frontend/src/utils/navbar/navbar.js"></script>
+</body>
+</html>

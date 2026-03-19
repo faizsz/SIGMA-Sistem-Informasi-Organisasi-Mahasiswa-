@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300;400;500;600;700&display=swap');
+
+body {
+    font-family: 'Merriweather Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #fdf9e3;
+    border-top: 1px solid #e0e0e0;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+#footer-content {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 20px;
+}
+
+#footer-left {
+    max-width: 200px;
+}
+
+.footer-logo {
+    width: 100%;
+    height: auto;
+}
+
+.footer-divider {
+    margin: 10px 0;
+    border: none;
+    border-top: 2px solid #ddd;
+}
+
+#footer-left p {
+    font-size: 14px;
+    color: #333;
+}
+
+#footer-social {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    padding: 50px 0 20px 20px;
+}
+
+.social-link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50px;
+    height: 50px;
+    background-color: #fdf9e3;
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+}
+
+.social-link:hover {
+    background-color: #161D6F;
+    transform: scale(1.2);
+}
+
+.social-icon {
+    width: 36px;
+    height: 36px;
+}
+
+#footer-right {
+    max-width: 300px;
+    text-align: right;
+    font-size: 14px;
+    line-height: 1.5;
+    color: #444;
+}
+
+#footer-right p {
+    margin: 0;
+}
+
+#footer-right p:first-child {
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #555;
+}
+
+.footer-email {
+    color: #333;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.footer-email:hover {
+    color: #0a66c2;
+    text-decoration: underline;
+}
+
+.footer-bottom-divider {
+    width: 100%;
+    border: none;
+    border-top: 1px solid #ddd;
+    margin-bottom: 10px;
+}
+
+.footer-bottom-text {
+    font-size: 12px;
+    color: #777;
+    text-align: center;
+    margin-top: 10px;
+}

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UKM Detail</title>
+    <link rel="stylesheet" href="/frontend/src/pages/user/css/ukm_detail_registered.css">
+</head>
+<body>
+    <div id="navbar"></div>
+    <div class="container">
+        <div class="banner-container">
+            <img id="ukm-banner" src="/frontend/public/assets/default-banner.jpg" alt="UKM Banner">
+        </div>
+   
+        <div class="content-container">
+            <div class="sidebar">
+                <div class="menu-item active" data-jenis="proker">
+                    Program Kerja
+                </div>
+                <div class="menu-item" data-jenis="agenda">
+                    Agenda
+                </div>
+            </div>
+   
+            <div class="main-content">
+                <div id="timeline-list"></div>
+                <div id="pagination-controls" class="pagination-controls"></div>
+                <div id="loading" class="loading-spinner" style="display: none;">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+                    
+        </div>
+    </div>
+   
+    <!-- Template Timeline Item -->
+    <template id="timeline-template">
+        <div class="timeline-item">
+            <div class="timeline-header">
+                <h3 class="timeline-title"></h3>
+                <span class="timeline-date"></span>
+            </div>
+            <div class="timeline-content">
+                <div class="panitia-section">
+                    <h4 class="section-title dropdown-header" style="cursor: pointer;">Panitia Program Kerja</h4>
+                    <div class="panitia-list" style="display: none;">
+                        <!-- Daftar Panitia -->
+                    </div>
+                </div>
+                <div class="rapat-section">
+                    <h4 class="section-title dropdown-header" style="cursor: pointer;">Rapat</h4>
+                    <div class="rapat-list" style="display: none;">
+                        <!-- Daftar Rapat -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </template>
+   
+    <!-- Include external JS file -->
+    <script src="../user/js/ukm_detail_registered.js"></script>
+    <script src="/frontend/src/utils/navbar/navbar.js"></script>
+</body>
+</html>

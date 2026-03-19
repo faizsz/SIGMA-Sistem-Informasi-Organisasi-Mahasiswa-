@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Connected Organization Chart</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.2.0/css/adminlte.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <style>
+        .org-chart {
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+        }
+
+        .level {
+            position: relative;
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin: 50px 0;
+            flex-wrap: wrap;
+        }
+
+        .department-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .staff-level {
+            display: flex;
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .card-member {
+            width: 180px;
+            border-radius: 10px;
+            padding: 15px;
+            color: white;
+            position: relative;
+            z-index: 2;
+        }
+
+        .card-member.ceo {
+            background-color: #e74c3c;
+        }
+
+        .card-member.manager {
+            background-color: #3498db;
+        }
+
+        .card-member.staff {
+            background-color: #95a5a6;
+        }
+
+        .member-photo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.3);
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .member-photo img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .member-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .member-position {
+            font-size: 0.9em;
+            opacity: 0.9;
+        }
+
+        .crown-icon {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            color: gold;
+        }
+
+        .vertical-line {
+            position: absolute;
+            width: 2px;
+            background-color: #ddd;
+            top: -30px;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1;
+        }
+
+        .manager-connector {
+            position: absolute;
+            height: 2px;
+            background-color: #ddd;
+            top: 50%;
+            left: 90px;
+            right: 90px;
+            z-index: 1;
+        }
+
+        .staff-group {
+            position: relative;
+            display: flex;
+            gap: 30px;
+            margin-top: 50px;
+            padding-top: 30px;
+        }
+
+        .staff-vertical-line {
+            position: absolute;
+            width: 2px;
+            background-color: #ddd;
+            top: 0;
+            height: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .staff-connector {
+            position: absolute;
+            height: 2px;
+            background-color: #ddd;
+            top: 50%;
+            left: 0;
+            right: 0;
+            z-index: 1;
+        }
+
+        .back-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: #3498db;
+            color: white;
+            padding: 12px 24px;
+            border-radius: 50px;
+            text-decoration: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: #2980b9;
+            color: white;
+            text-decoration: none;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        }
+
+        @media (max-width: 768px) {
+            .level {
+                gap: 30px;
+            }
+
+            .staff-group {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body class="hold-transition">
+    <div class="wrapper">
+        <div class="content-wrapper">
+            <section class="content">
+                <div class="container-fluid">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="org-chart" id="org-chart-container">
+                                <!-- Content will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <a href="#" onclick="history.back(); return false;" class="back-button">
+        <i class="fas fa-arrow-left"></i> Kembali
+    </a>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/admin-lte/3.2.0/js/adminlte.min.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const urlParams = new URLSearchParams(window.location.search);
+            const idUkm = urlParams.get('id_ukm');
+
+            if (!idUkm) {
+                document.getElementById('org-chart-container').innerHTML = `
+                    <div class="alert alert-danger">
+                        ID UKM tidak ditemukan. 
+                        <a href="javascript:history.back()">Kembali</a>
+                    </div>
+                `;
+                return;
+            }
+
+            fetch(`/backend/controllers/mahasiswa/struktur_lengkap.php?id_ukm=${idUkm}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        renderStrukturLengkap(data.struktur_organisasi);
+                    } else {
+                        throw new Error(data.message);
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('org-chart-container').innerHTML = `
+                        <div class="alert alert-danger">
+                            Terjadi kesalahan saat memuat data: ${error.message}
+                            <br>
+                            <a href="javascript:history.back()">Kembali</a>
+                        </div>
+                    `;
+                });
+        });
+
+        function renderStrukturLengkap(strukturData) {
+            const container = document.getElementById('org-chart-container');
+            
+            const strukturLevel = {
+                ketuaUKM: null,
+                levelDua: [],
+                divisi: {}
+            };
+
+            strukturData.forEach(member => {
+                if (member.divisi_hierarki === 1) {
+                    if (member.jabatan_hierarki === 1) {
+                        strukturLevel.ketuaUKM = member;
+                    } else if (member.jabatan_hierarki === 2 || member.jabatan_hierarki === 3) {
+                        strukturLevel.levelDua.push(member);
+                    }
+                } else if (member.divisi_hierarki === 2) {
+                    const divisiKey = member.nama_divisi;
+                    if (!strukturLevel.divisi[divisiKey]) {
+                        strukturLevel.divisi[divisiKey] = {
+                            info: member,
+                            ketuaDivisi: null,
+                            wakilDivisi: [],
+                            anggotaDivisi: []
+                        };
+                    }
+                    
+                    // Kelompokkan berdasarkan hierarki
+                    if (member.jabatan_hierarki === 1) {
+                        strukturLevel.divisi[divisiKey].ketuaDivisi = member;
+                    } else if (member.jabatan_hierarki === 2) {
+                        strukturLevel.divisi[divisiKey].wakilDivisi.push(member);
+                    } else if (member.jabatan_hierarki === 3 || member.jabatan_hierarki === 4) {
+                        strukturLevel.divisi[divisiKey].anggotaDivisi.push(member);
+                    }
+                }
+            });
+
+            let html = `
+                <!-- Ketua Level -->
+                <div class="level">
+                    <div class="card-member ceo">
+                        <i class="fas fa-crown crown-icon"></i>
+                        <div class="member-photo">
+                            <img src="/frontend/public/assets/${strukturLevel.ketuaUKM?.foto_path || 'default-profile.png'}"
+                                 onerror="this.src='/frontend/public/assets/default-profile.png'">
+                        </div>
+                        <div class="member-name">${strukturLevel.ketuaUKM?.nama_lengkap || 'Ketua'}</div>
+                        <div class="member-position">${strukturLevel.ketuaUKM?.nama_jabatan || 'Ketua UKM'}</div>
+                    </div>
+                </div>
+
+                <!-- Level 2 -->
+                <div class="level">
+                    <div class="manager-connector"></div>
+                    <div class="vertical-line"></div>
+                    ${strukturLevel.levelDua.map(member => `
+                        <div class="card-member manager">
+                            <div class="member-photo">
+                                <img src="/frontend/public/assets/${member.foto_path || 'default-profile.png'}"
+                                     onerror="this.src='/frontend/public/assets/default-profile.png'">
+                            </div>
+                            <div class="member-name">${member.nama_lengkap}</div>
+                            <div class="member-position">${member.nama_jabatan}</div>
+                        </div>
+                    `).join('')}
+                </div>
+
+                <!-- Divisi Level -->
+                <div class="level">
+                    <div class="manager-connector"></div>
+                    <div class="vertical-line"></div>
+                   ${Object.entries(strukturLevel.divisi).map(([nama, data]) => `
+                        <div class="department-group">
+                            <!-- Judul Divisi -->
+                            <div class="card-member staff">
+                                <div class="member-photo">
+                                    <i class="fas fa-users fa-lg"></i>
+                                </div>
+                                <div class="member-name">${nama}</div>
+                                <div class="member-position">Divisi</div>
+                            </div>
+
+                            <!-- Ketua Divisi -->
+                            <div class="staff-group">
+                                <div class="staff-vertical-line"></div>
+                                ${data.ketuaDivisi ? `
+                                    <div class="card-member staff">
+                                        <div class="member-photo">
+                                            <img src="/frontend/public/assets/${data.ketuaDivisi.foto_path || 'default-profile.png'}"
+                                                onerror="this.src='/frontend/public/assets/default-profile.png'">
+                                        </div>
+                                        <div class="member-name">${data.ketuaDivisi.nama_lengkap}</div>
+                                        <div class="member-position">${data.ketuaDivisi.nama_jabatan}</div>
+                                    </div>
+                                ` : ''}
+                            </div>
+
+                            <!-- Wakil Divisi -->
+                            ${data.wakilDivisi.length > 0 ? `
+                                <div class="staff-group">
+                                    <div class="staff-vertical-line"></div>
+                                    <div class="staff-connector"></div>
+                                    ${data.wakilDivisi.map(wakil => `
+                                        <div class="card-member staff">
+                                            <div class="member-photo">
+                                                <img src="/frontend/public/assets/${wakil.foto_path || 'default-profile.png'}"
+                                                    onerror="this.src='/frontend/public/assets/default-profile.png'">
+                                            </div>
+                                            <div class="member-name">${wakil.nama_lengkap}</div>
+                                            <div class="member-position">${wakil.nama_jabatan}</div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            ` : ''}
+
+                            <!-- Anggota Divisi -->
+                            ${data.anggotaDivisi.length > 0 ? `
+                                <div class="staff-group">
+                                    <div class="staff-vertical-line"></div>
+                                    <div class="staff-connector"></div>
+                                    ${data.anggotaDivisi.map(anggota => `
+                                        <div class="card-member staff">
+                                            <div class="member-photo">
+                                                <img src="/frontend/public/assets/${anggota.foto_path || 'default-profile.png'}"
+                                                    onerror="this.src='/frontend/public/assets/default-profile.png'">
+                                            </div>
+                                            <div class="member-name">${anggota.nama_lengkap}</div>
+                                            <div class="member-position">${anggota.nama_jabatan}</div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            ` : ''}
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+
+            container.innerHTML = html;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300;400;500;600;700&display=swap');
+
+body {
+    font-family: 'Merriweather Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.55rem 2rem;
+    background-color: #fdf9e3;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+}
+
+.nav-logo {
+    height: 60px;
+    width: auto;
+}
+
+.nav-menu {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 2.5rem;
+}
+
+.nav-item {
+    margin: 0;
+}
+
+.nav-link {
+    color: #161D6F;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #007bff;
+}
+
+.hamburger {
+    display: none;
+    cursor: pointer;
+    z-index: 2000; /* Memastikan hamburger berada di atas elemen lainnya */
+}
+
+.bar {
+    display: block;
+    width: 30px;
+    height: 4px;
+    margin: 5px auto;
+    transition: all 0.3s ease;
+    background-color: #333;
+}
+
+/* Responsif untuk ukuran layar desktop */
+@media screen and (max-width: 1024px) {
+    .nav-link {
+        font-size: 15px;
+    }
+}
+
+/* Responsif untuk ukuran layar mobile */
+@media screen and (max-width: 768px) {
+    .hamburger {
+        display: block;
+    }
+    
+    .hamburger.active .bar:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .hamburger.active .bar:nth-child(1) {
+        transform: translateY(10px) rotate(45deg);
+    }
+    
+    .hamburger.active .bar:nth-child(3) {
+        transform: translateY(-10px) rotate(-45deg);
+    }
+    
+    .nav-menu {
+        position: fixed;
+        left: -100%;
+        top: 0;
+        height: 100%;
+        width: 100%;
+        flex-direction: column;
+        background-color: #fff;
+        text-align: left;
+        padding-top: 50px;
+        transition: left 0.3s ease;
+    }
+    
+    .nav-item {
+        margin: 1.5rem;
+    }
+    
+    .nav-menu.active {
+        left: 0;
+    }
+
+    .nav-link {
+        font-size: 20px;
+        color: #00274D;
+        text-decoration: none;
+        font-weight: bold;
+        padding: 0.75rem;
+        display: block;
+    }
+
+    .bar {
+        width: 25px; /* Dikurangi dari 30px menjadi 25px */
+        height: 3px; /* Dikurangi dari 4px menjadi 3px */
+        margin: 4px auto; /* Dikurangi dari 5px menjadi 4px */
+    }
+}
+
+/* Responsif untuk layar lebih kecil */
+@media screen and (max-width: 480px) {
+    .nav-link {
+        font-size: 20px;
+    }
+}
+
+/* Cover Image styles */
+.banner-container {
+    margin-top: 90px;
+}
+
+/* Styling untuk elemen body dan menu saat dalam mode mobile */
+body.mobile-menu-active {
+    overflow: hidden;
+}
+
+.content-wrapper {
+    margin-top: 70px; /* Sesuaikan dengan tinggi navbar baru */
+}

@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Kelola Periode Kepengurusan</title>
+  <!-- Google Font: Source Sans Pro -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="/frontend/src/pages/admin/plugins/fontawesome-free/css/all.min.css">
+  <!-- DataTables -->
+  <link rel="stylesheet" href="/frontend/src/pages/admin/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="/frontend/src/pages/admin/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="/frontend/src/pages/admin/dist/css/adminlte.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css">
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
+<body class="hold-transition sidebar-mini">
+<div class="wrapper">
+  <!-- Navbar -->
+  <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+      </li>
+    </ul>
+
+    <!-- Right navbar links -->
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="fullscreen" href="#" role="button">
+          <i class="fas fa-expand-arrows-alt"></i>
+        </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/index.html" role="button">
+          <i class="fas fa-sign-out-alt"></i>
+        </a>
+      </li>
+    </ul>
+  </nav>
+
+  <!-- Main Sidebar Container -->
+  <aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="index3.html" class="brand-link">
+      <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+      <span class="brand-text font-weight-light">SIGMA</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <!-- Sidebar user panel (optional) -->
+      <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+        <div class="image">
+          <img src="/frontend/public/assets/super_admin.png" class="img-circle elevation-2" alt="User Image">
+        </div>
+        <div class="info">
+          <a href="#" class="d-block" id="username-display">Super Admin</a>
+        </div>
+      </div>
+
+      <!-- Sidebar Menu -->
+      <nav class="mt-2">
+        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+          <li class="nav-item">
+            <a href="dashboard.html" class="nav-link">
+              <i class="nav-icon fas fa-tachometer-alt"></i>
+              <p>Dashboard</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="mahasiswa.html" class="nav-link">
+              <i class="nav-icon fas fa-users"></i>
+              <p>Mahasiswa</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="ukm.html" class="nav-link">
+              <i class="nav-icon fas fa-star"></i>
+              <p>UKM</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="user.html" class="nav-link">
+              <i class="nav-icon fas fa-user"></i>
+              <p>User Login</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="periode_kepengurusan.html" class="nav-link active">
+                <i class="nav-icon fas fa-calendar-alt"></i>
+                <p>Periode Kepengurusan</p>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </aside>
+
+    <!-- Content Wrapper -->
+    <div class="content-wrapper">
+        <section class="content-header">
+            <div class="container-fluid">
+                <h1>Kelola Periode Kepengurusan</h1>
+            </div>
+        </section>
+
+        <section class="content">
+            <div class="container-fluid">
+                <!-- Form Tambah Periode -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Tambah Periode</h3>
+                    </div>
+                    <div class="card-body">
+                        <form id="form-tambah-periode">
+                            <div class="form-group">
+                                <label for="tahun_mulai">Tahun Mulai</label>
+                                <input type="number" class="form-control" id="tahun_mulai" name="tahun_mulai" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="tahun_selesai">Tahun Selesai</label>
+                                <input type="number" class="form-control" id="tahun_selesai" name="tahun_selesai" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Tambah</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Tabel Data Periode -->
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Daftar Periode</h3>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Tahun Mulai</th>
+                                    <th>Tahun Selesai</th>
+                                    <th>Status</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="table-periode-body">
+                                <!-- Data akan dimuat secara dinamis -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Footer -->
+    <footer class="main-footer">
+        <strong>Copyright &copy; 2024 <a href="#">AdminLTE</a>.</strong>
+        All rights reserved.
+    </footer>
+</div>
+
+<script src="plugins/jquery/jquery.min.js"></script>
+<script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="dist/js/adminlte.min.js"></script>
+<script>
+    $(document).ready(function () {
+  function loadPeriode() {
+    $.get('/backend/controllers/admin/periode_kepengurusan.php?action=get_data', function (response) {
+      try {
+        const data = typeof response === 'string' ? JSON.parse(response) : response;
+
+        if (data.status === 'success') {
+          const tableBody = $('#table-periode-body');
+          tableBody.empty();
+
+          data.data.forEach(item => {
+            const row = `
+              <tr>
+                <td>${item.id_periode}</td>
+                <td>${item.tahun_mulai}</td>
+                <td>${item.tahun_selesai}</td>
+                <td>
+                  <span class="badge ${item.status === 'aktif' ? 'badge-success' : 'badge-secondary'}">
+                    ${item.status}
+                  </span>
+                </td>
+                <td>
+                  <button class="btn btn-sm btn-warning btn-ubah-status" data-id="${item.id_periode}">
+                    Ubah Status
+                  </button>
+                </td>
+              </tr>
+            `;
+            tableBody.append(row);
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: data.message || 'Gagal memuat data'
+          });
+        }
+      } catch (error) {
+        console.error('Error parsing response:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Terjadi kesalahan saat memuat data'
+        });
+      }
+    }).fail(function () {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Tidak dapat terhubung ke server'
+      });
+    });
+  }
+
+        // Muat data awal
+        loadPeriode();
+
+       // Handle form submission for adding periode
+  $('#form-tambah-periode').on('submit', function (e) {
+    e.preventDefault();
+
+    const formData = $(this).serialize();
+    $.post('/backend/controllers/admin/periode_kepengurusan.php?action=add', formData, function (response) {
+      try {
+        const data = typeof response === 'string' ? JSON.parse(response) : response;
+
+        if (data.status === 'success') {
+          Swal.fire({
+            icon: 'success',
+            title: 'Sukses!',
+            text: data.message,
+            showConfirmButton: false,
+            timer: 1500
+          }).then(() => {
+            loadPeriode();
+          });
+        } else {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: data.message || 'Gagal menambah periode'
+          });
+        }
+      } catch (error) {
+        console.error('Error parsing response:', error);
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Terjadi kesalahan saat menambah periode'
+        });
+      }
+    }).fail(function () {
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Tidak dapat terhubung ke server'
+      });
+    });
+  });
+
+  // Tangani perubahan status aktif
+    $(document).on('click', '.btn-ubah-status', function () {
+    const id = $(this).data('id');
+    
+    Swal.fire({
+      title: 'Konfirmasi',
+      text: 'Apakah Anda yakin ingin mengubah status periode ini?',
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Ya, Ubah',
+      cancelButtonText: 'Batal',
+      reverseButtons: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        $.post('/backend/controllers/admin/periode_kepengurusan.php?action=update_status', { id_periode: id }, function (response) {
+          try {
+            const data = typeof response === 'string' ? JSON.parse(response) : response;
+
+            if (data.status === 'success') {
+              Swal.fire({
+                icon: 'success',
+                title: 'Sukses!',
+                text: data.message,
+                showConfirmButton: false,
+                timer: 1500
+              }).then(() => {
+                loadPeriode();
+              });
+            } else {
+              Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: data.message || 'Gagal mengubah status'
+              });
+            }
+          } catch (error) {
+            console.error('Error parsing response:', error);
+            Swal.fire({
+              icon: 'error',
+              title: 'Error',
+              text: 'Terjadi kesalahan saat mengubah status'
+            });
+          }
+        }).fail(function () {
+          Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Tidak dapat terhubung ke server'
+          });
+        });
+      }
+    });
+  });
+});
+</script>
+
+
+</body> 
+</html>

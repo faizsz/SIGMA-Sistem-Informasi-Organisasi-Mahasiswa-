@@ -1,0 +1,173 @@
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Sistem Informasi Organisasi Mahasiswa</title>
+        <link rel="icon" href="/frontend/public/assets/logo-sigma.png" type="image/png">
+        <link rel="stylesheet" href="/frontend/src/styles/user/profile.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.32/dist/sweetalert2.all.min.js"></script>
+    </head>
+
+    <body>
+        <div id="navbar"></div>
+        <div class="cover-container">
+            <img src="/frontend/public/assets/profile3.png" alt="Cover Image" class="cover-image">
+        </div>
+    
+        <div class="profile-section">
+            
+          <!-- Edit Profile Modal -->
+            <div id="editProfileModal" class="edit-modal">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h3>Edit Profile</h3>
+                        <button class="close-btn">&times;</button>
+                    </div>
+
+                    <!-- Tambahkan tab buttons -->
+                    <div class="tab-buttons">
+                        <button class="tab-btn active" data-tab="profile">Edit Profile</button>
+                        <button class="tab-btn" data-tab="password">Ubah Password</button>
+                    </div>
+
+                    <div class="tab-content active" id="profileTab">
+                        <form id="editProfileForm" enctype="multipart/form-data">
+                            <div class="form-section">
+                                <label>Profile Picture</label>
+                                <div class="profile-upload">
+                                    <div id="imagePreview" class="preview-container"></div>
+                                    <input type="file" id="profile_picture" name="profile_picture" accept="image/*">
+                                    <label for="profile_picture" class="upload-label">Choose File</label>
+                                </div>
+                            </div>
+    
+                            <div class="form-section">
+                                <label for="nama">Nama Lengkap</label>
+                                <input type="text" id="nama" name="nama" required>
+                            </div>
+    
+                            <div class="form-section">
+                                <label for="program_studi">Program Studi</label>
+                                <select id="program_studi" name="program_studi" required>
+                                    <option value="">Pilih Program Studi</option>
+                                </select>
+                            </div>
+    
+                            <div class="form-section">
+                                <label>Jenis Kelamin</label>
+                                <div class="radio-group">
+                                    <label class="radio-label">
+                                        <input type="radio" name="jenis_kelamin" id="jk_laki" value="Laki-laki">
+                                        <span>Laki-laki</span>
+                                    </label>
+                                    <label class="radio-label">
+                                        <input type="radio" name="jenis_kelamin" id="jk_perempuan" value="Perempuan">
+                                        <span>Perempuan</span>
+                                    </label>
+                                </div>
+                            </div>
+    
+                            <div class="form-section">
+                                <label for="kelas">Kelas</label>
+                                <input type="text" id="kelas" name="kelas" required>
+                            </div>
+    
+                            <div class="form-section">
+                                <label for="alamat">Alamat</label>
+                                <textarea id="alamat" name="alamat" required></textarea>
+                            </div>
+    
+                            <div class="form-section">
+                                <label for="no_whatsapp">No WhatsApp</label>
+                                <input type="tel" id="no_whatsapp" name="no_whatsapp" required>
+                            </div>
+    
+                            <div class="form-section">
+                                <label for="email">Email</label>
+                                <input type="email" id="email" name="email" required>
+                            </div>
+    
+                            <div class="form-actions">
+                                <button type="submit" class="submit-btn">Simpan</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Tambahkan form password baru -->
+                    <div class="tab-content" id="passwordTab" style="display: none;">
+                        <form id="changePasswordForm">
+                            <div class="form-section">
+                                <label for="oldPassword">Password Lama</label>
+                                <input type="password" id="oldPassword" name="oldPassword" required>
+                            </div>
+
+                            <div class="form-section">
+                                <label for="newPassword">Password Baru</label>
+                                <input type="password" id="newPassword" name="newPassword" required>
+                            </div>
+
+                            <div class="form-section">
+                                <label for="confirmPassword">Konfirmasi Password Baru</label>
+                                <input type="password" id="confirmPassword" name="confirmPassword" required>
+                            </div>
+
+                            <div class="form-actions">
+                                <button type="submit" class="submit-btn">Ubah Password</button>
+                            </div>
+                        </form>
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="profile-content">
+                <div class="profile-image-container">
+                    <img src="/frontend/public/assets/profile/pp.jpg" class="profile-image" alt="Profile Picture" id="profileImageDisplay">
+                </div>
+
+                <div class="profile-info">
+                    <h1 class="profile-name" id="profileName">Loading...</h1>
+                    <p class="profile-nim" id="profileNim">Loading...</p>
+                    <button id="editProfileBtn" class="edit-profile-button">Edit Profile</button>
+                </div>
+                
+                <!-- UKM Aktif -->
+                <div class="ukm-box">
+                    <h2 class="ukm-title">UKM yang Sedang Diikuti</h2>
+                    <div class="card-container" id="ukmAktifContainer">
+                        <p class="loading-text">Loading...</p>
+                    </div>
+                </div>
+
+                <!-- Histori UKM -->
+                <div class="ukm-box">
+                    <h2 class="ukm-title">Riwayat UKM</h2>
+                    <div class="card-container" id="ukmHistoriContainer">
+                        <p class="loading-text">Loading...</p>
+                    </div>
+                </div>
+
+                <!-- UKM yang Sedang Didaftar -->
+                <div class="ukm-box">
+                    <h2 class="ukm-title">UKM yang Sedang Didaftar</h2>
+                    <div class="card-container" id="ukmPendaftaranContainer">
+                        <p class="info-text">Tidak ada UKM yang sedang didaftar</p>
+                    </div>
+                </div>
+
+                <!-- Logout Button -->
+                <div class="logout-container">
+                    <button onclick="logout()" class="logout-button">Logout</button>
+                </div>
+            </div>
+        </div>
+
+        <script src="/frontend/src/utils/navbar/navbar.js"></script>
+        <script src="/frontend/src/pages/user/js/logout.js"></script>
+        <script src="/frontend/src/pages/user/js/auth.js"></script>
+        <script src="/frontend/src/pages/user/js/profile.js"></script>
+        
+    </body>
+    </html>

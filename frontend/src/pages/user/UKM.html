@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistem Informasi Organisasi Mahasiswa</title>
+    <link rel="stylesheet" href="/frontend/src/styles/user/UKM.css">
+    <link rel="icon" href="/frontend/public/assets/logo-sigma.png" type="image/png">
+</head>
+<body>
+    <div id="navbar"></div>
+    <div class="content-container">
+        <!-- Section UKM yang Diikuti -->
+        <h2>UKM yang Diikuti</h2>
+        <div class="ukm-grid" id="ukm-diikuti">
+            <!-- Data UKM Diikuti akan diisi oleh JavaScript -->
+        </div>
+
+        <!-- Section Rekomendasi UKM -->
+        <h2>Daftar UKM</h2>
+        <div class="ukm-grid" id="ukm-rekomendasi">
+            <!-- Data Rekomendasi UKM akan diisi oleh JavaScript -->
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="/frontend/src/utils/navbar/navbar.js"></script>
+    
+    <!-- Script untuk UKM yang Diikuti -->
+    <script>
+        function loadUKMDiikuti() {
+            fetch('/backend/controllers/mahasiswa/get_ukm_diikuti.php')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    const ukmContainer = document.getElementById('ukm-diikuti');
+                    
+                    if (Array.isArray(data) && data.length > 0) {
+                        ukmContainer.innerHTML = ''; // Bersihkan container
+                        
+                        data.forEach(ukm => {
+                            const ukmCard = document.createElement('a');
+                            ukmCard.href = `/frontend/src/pages/user/ukm_detail_registered.html?id=${ukm.id_ukm}`;
+                            ukmCard.className = "ukm-card";
+                            
+                            const logoPath = ukm.logo_path || 'default-logo.png';
+                            
+                            ukmCard.innerHTML = `
+                                <img src="/frontend/public/assets/${logoPath}" 
+                                     alt="${ukm.nama_ukm} Logo" 
+                                     class="ukm-logo"
+                                     onerror="this.src='/frontend/public/assets/default-logo.png'">
+                                <div class="ukm-name">${ukm.nama_ukm}</div>
+                                <div class="ukm-desc">${ukm.deskripsi || 'Tidak ada deskripsi'}</div>
+                                <div class="ukm-periode">Periode ${ukm.tahun_mulai}-${ukm.tahun_selesai}</div>
+                            `;
+                            
+                            ukmContainer.appendChild(ukmCard);
+                        });
+                    } else {
+                        ukmContainer.innerHTML = '<p class="no-data">Anda belum mengikuti UKM apapun</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    document.getElementById('ukm-diikuti').innerHTML = 
+                        '<p class="error-message">Terjadi kesalahan saat memuat data UKM</p>';
+                });
+        }
+    </script>
+
+    <!-- Script untuk Rekomendasi UKM -->
+    <script>
+        function loadUKMRekomendasi() {
+            fetch('/backend/controllers/mahasiswa/get_ukm_rekomendasi.php')
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                })
+                .then(response => {
+                    const ukmContainer = document.getElementById('ukm-rekomendasi');
+                    
+                    if (response.status === 'success' && response.data && response.data.length > 0) {
+                        ukmContainer.innerHTML = ''; // Bersihkan container
+                        
+                        response.data.forEach(ukm => {
+                            const ukmCard = document.createElement('a');
+                            ukmCard.href = `/frontend/src/pages/user/ukm_detail_not_registered.html?id=${ukm.id_ukm}`;
+                            ukmCard.className = "ukm-card";
+                            
+                            const logoPath = ukm.logo_path || 'default-logo.png';
+                            
+                            ukmCard.innerHTML = `
+                                <img src="/frontend/public/assets/${logoPath}" 
+                                     alt="${ukm.nama_ukm} Logo" 
+                                     class="ukm-logo"
+                                     onerror="this.src='/frontend/public/assets/default-logo.png'">
+                                <div class="ukm-name">${ukm.nama_ukm}</div>
+                                <div class="ukm-desc">${ukm.deskripsi || 'Tidak ada deskripsi'}</div>
+                            `;
+                            
+                            ukmContainer.appendChild(ukmCard);
+                        });
+                    } else {
+                        ukmContainer.innerHTML = '<p class="no-data">Tidak ada rekomendasi UKM saat ini</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    ukmContainer.innerHTML = 
+                        '<p class="error-message">Terjadi kesalahan saat memuat rekomendasi UKM</p>';
+                });
+        }
+
+        // Panggil kedua fungsi saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', () => {
+            loadUKMDiikuti();
+            loadUKMRekomendasi();
+        });
+    </script>
+    
+    <script src="/frontend/src/pages/user/js/auth.js"></script>
+</body>
+</html>

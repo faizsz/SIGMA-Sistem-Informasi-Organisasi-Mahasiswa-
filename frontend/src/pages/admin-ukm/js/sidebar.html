@@ -1,0 +1,134 @@
+<!-- Sidebar -->
+<aside class="main-sidebar sidebar-dark-primary elevation-4">
+    <!-- Brand Logo -->
+    <a href="index.html" class="brand-link">
+        <img src="/frontend/src/pages/admin/dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+        <span class="brand-text font-weight-light">Admin UKM</span>
+    </a>
+
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
+                <li class="nav-item">
+                    <a href="dashboard.php" class="nav-link">
+                        <i class="nav-icon fas fa-tachometer-alt"></i>
+                        <p>Dashboard</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="profile-ukm.php" class="nav-link">
+                        <i class="nav-icon fas fa-user"></i>
+                        <p>Profil UKM</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="struktur_organisasi.php" class="nav-link">
+                        <i class="nav-icon fas fa-sitemap"></i>
+                        <p>Struktur Organisasi</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="timeline.php" class="nav-link">
+                        <i class="nav-icon fas fa-clock"></i>
+                        <p>Timeline Kegiatan</p>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="keanggotaan.php" class="nav-link">
+                        <i class="nav-icon fas fa-users"></i>
+                        <p>Keanggotaan</p>
+                    </a>
+                </li>
+                <!-- Modified Pendaftaran Menu Item -->
+                <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link">
+                        <i class="nav-icon fas fa-edit"></i>
+                        <p>
+                            Pendaftaran
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="manajemen-periode.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Manajemen Periode</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="manajemen-pendaftar.php" class="nav-link">
+                                <i class="far fa-circle nav-icon"></i>
+                                <p>Manajemen Pendaftar</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link" onclick="logout()">
+                        <i class="nav-icon fas fa-sign-out-alt"></i>
+                        <p>Logout</p>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+</aside>
+
+<style>
+/* Responsive styles */
+@media (max-width: 768px) {
+    .main-sidebar {
+        position: fixed;
+        left: -250px;
+        transition: left 0.3s ease-in-out;
+    }
+
+    .sidebar-open .main-sidebar {
+        left: 0;
+    }
+
+    .content-wrapper {
+        margin-left: 0 !important;
+    }
+
+    .sidebar-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.5);
+        z-index: 998;
+    }
+
+    .sidebar-open .sidebar-overlay {
+        display: block;
+    }
+}
+
+/* Improve dropdown styling */
+.nav-treeview {
+    display: none;
+    padding-left: 1rem;
+}
+
+.nav-item.menu-open > .nav-treeview {
+    display: block;
+}
+
+.nav-link {
+    display: flex;
+    align-items: center;
+}
+
+.nav-link i.right {
+    transition: transform 0.3s ease;
+}
+
+.nav-item.menu-open > .nav-link i.right {
+    transform: rotate(-90deg);
+}
+</style>

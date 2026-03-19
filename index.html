@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SIGMA — Login</title>
+  <link rel="icon" href="/frontend/public/assets/logo-sigma.png" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --navy:    #0F1B4C;
+      --navy2:   #161D6F;
+      --accent:  #4F6AF0;
+      --teal:    #0EA5A0;
+      --rose:    #F43F5E;
+      --amber:   #F59E0B;
+      --green:   #10B981;
+      --surface: #F4F6FB;
+      --border:  #E2E8F2;
+      --text:    #1A2340;
+      --soft:    #94A3B8;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      min-height: 100vh;
+      background: var(--navy);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ── Animated background ── */
+    .bg-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+      animation: drift 12s ease-in-out infinite alternate;
+    }
+    .orb-1 { width: 500px; height: 500px; background: radial-gradient(circle, rgba(79,106,240,.22), transparent 70%); top: -150px; right: -100px; animation-delay: 0s; }
+    .orb-2 { width: 400px; height: 400px; background: radial-gradient(circle, rgba(14,165,160,.15), transparent 70%); bottom: -100px; left: -80px; animation-delay: -4s; }
+    .orb-3 { width: 300px; height: 300px; background: radial-gradient(circle, rgba(124,58,237,.12), transparent 70%); top: 40%; left: 40%; animation-delay: -8s; }
+    @keyframes drift { from { transform: translate(0,0) scale(1); } to { transform: translate(30px,20px) scale(1.08); } }
+
+    /* Grid dots */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background-image: radial-gradient(rgba(255,255,255,.04) 1px, transparent 1px);
+      background-size: 32px 32px;
+      pointer-events: none;
+    }
+
+    /* ── CARD ── */
+    .login-card {
+      position: relative;
+      width: 100%;
+      max-width: 1000px;
+      background: rgba(255,255,255,.04);
+      backdrop-filter: blur(24px);
+      border: 1px solid rgba(255,255,255,.10);
+      border-radius: 28px;
+      padding: 0;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+      box-shadow: 0 32px 80px rgba(0,0,0,.45), 0 0 0 1px rgba(255,255,255,.06) inset;
+      animation: cardIn .6s cubic-bezier(.34,1.2,.64,1) both;
+    }
+    @keyframes cardIn { from { opacity: 0; transform: translateY(28px) scale(.97); } to { opacity: 1; transform: translateY(0) scale(1); } }
+
+    /* ── LEFT PANEL ── */
+    .left-panel {
+      background: linear-gradient(145deg, rgba(79,106,240,.18) 0%, rgba(14,165,160,.10) 100%);
+      border-right: 1px solid rgba(255,255,255,.08);
+      padding: 52px 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .brand { display: flex; align-items: center; gap: 14px; margin-bottom: 40px; }
+    .brand-icon {
+      width: 48px; height: 48px;
+      background: linear-gradient(135deg, var(--accent), #7C3AED);
+      border-radius: 14px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; color: #fff;
+      box-shadow: 0 8px 24px rgba(79,106,240,.4);
+      flex-shrink: 0;
+    }
+    .brand-text h1 { font-size: 22px; font-weight: 800; color: #fff; letter-spacing: .5px; }
+    .brand-text p  { font-size: 12px; color: rgba(255,255,255,.4); margin-top: 2px; }
+
+    .left-body h2 {
+      font-size: 28px; font-weight: 800; color: #fff;
+      line-height: 1.3; margin-bottom: 12px;
+    }
+    .left-body h2 span { color: var(--accent); }
+    .left-body p { font-size: 14px; color: rgba(255,255,255,.5); line-height: 1.7; }
+
+    .feature-list { margin-top: 32px; display: flex; flex-direction: column; gap: 12px; }
+    .feature-item {
+      display: flex; align-items: center; gap: 12px;
+      font-size: 13px; color: rgba(255,255,255,.65);
+    }
+    .feature-dot {
+      width: 28px; height: 28px; border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; flex-shrink: 0;
+    }
+    .fd-blue  { background: rgba(79,106,240,.25);  color: var(--accent); }
+    .fd-teal  { background: rgba(14,165,160,.25);  color: var(--teal); }
+    .fd-amber { background: rgba(245,158,11,.25);  color: var(--amber); }
+    .fd-rose  { background: rgba(244,63,94,.25);   color: var(--rose); }
+
+    .left-footer {
+      margin-top: 40px;
+      font-size: 11px; color: rgba(255,255,255,.25);
+      line-height: 1.6;
+    }
+
+    /* ── RIGHT PANEL ── */
+    .right-panel {
+      background: rgba(255,255,255,.97);
+      padding: 52px 44px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .panel-head { margin-bottom: 28px; }
+    .panel-head h2 { font-size: 22px; font-weight: 800; color: var(--text); }
+    .panel-head p  { font-size: 13px; color: var(--soft); margin-top: 4px; }
+
+    /* Role tabs */
+    .role-tabs {
+      display: grid; grid-template-columns: repeat(3,1fr);
+      gap: 8px; margin-bottom: 20px;
+      animation: fadeUp .4s .25s ease both;
+    }
+    .role-tab {
+      padding: 10px 6px;
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      cursor: pointer;
+      text-align: center;
+      transition: all .2s cubic-bezier(.4,0,.2,1);
+      background: var(--surface);
+      user-select: none;
+    }
+    .role-tab:hover { border-color: var(--accent); background: #F0F3FF; }
+    .role-tab.active {
+      border-color: var(--accent);
+      background: linear-gradient(135deg, #EEF1FF, #F5F3FF);
+      box-shadow: 0 4px 12px rgba(79,106,240,.15);
+    }
+    .role-tab .rt-icon {
+      width: 34px; height: 34px; border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 15px; margin: 0 auto 6px;
+      transition: all .2s;
+    }
+    .role-tab .rt-label { font-size: 11px; font-weight: 700; color: var(--soft); transition: color .2s; line-height: 1.3; }
+    .role-tab.active .rt-label { color: var(--accent); }
+
+    /* Role colors */
+    .rt-mahasiswa .rt-icon  { background: #ECFDF5; color: var(--green); }
+    .rt-adminukm  .rt-icon  { background: #EEF1FF; color: var(--accent); }
+    .rt-superadmin .rt-icon { background: #FFF1F2; color: var(--rose); }
+    .role-tab.active.rt-mahasiswa  { border-color: var(--green);  background: linear-gradient(135deg,#F0FDF4,#ECFDF5); }
+    .role-tab.active.rt-mahasiswa .rt-label { color: var(--green); }
+    .role-tab.active.rt-mahasiswa  { box-shadow: 0 4px 12px rgba(16,185,129,.15); }
+    .role-tab.active.rt-adminukm   { border-color: var(--accent); background: linear-gradient(135deg,#EEF1FF,#F0F3FF); }
+    .role-tab.active.rt-adminukm .rt-label { color: var(--accent); }
+    .role-tab.active.rt-superadmin { border-color: var(--rose);   background: linear-gradient(135deg,#FFF1F2,#FFF5F5); }
+    .role-tab.active.rt-superadmin .rt-label { color: var(--rose); }
+
+    /* ── FORM ── */
+    @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+    .form-group { margin-bottom: 16px; animation: fadeUp .4s .3s ease both; }
+    .form-group:last-of-type { animation-delay: .35s; }
+
+    .form-label { font-size: 11px; font-weight: 700; color: #4A5568; letter-spacing: .4px; text-transform: uppercase; display: block; margin-bottom: 7px; }
+
+    .input-wrap { position: relative; }
+    .input-icon { position: absolute; left: 13px; top: 50%; transform: translateY(-50%); font-size: 14px; color: var(--soft); pointer-events: none; transition: color .2s; }
+    .form-input {
+      width: 100%; padding: 12px 14px 12px 38px;
+      border: 1.5px solid var(--border); border-radius: 10px;
+      font-size: 14px; font-family: inherit; color: var(--text);
+      background: var(--surface); outline: none;
+      transition: all .2s cubic-bezier(.4,0,.2,1);
+    }
+    .form-input:focus { border-color: var(--accent); background: #fff; box-shadow: 0 0 0 3px rgba(79,106,240,.12); }
+    .form-input:focus + .input-icon,
+    .input-wrap:focus-within .input-icon { color: var(--accent); }
+
+    .pw-toggle {
+      position: absolute; right: 12px; top: 50%; transform: translateY(-50%);
+      background: none; border: none; cursor: pointer; color: var(--soft);
+      font-size: 14px; padding: 4px; transition: color .2s;
+    }
+    .pw-toggle:hover { color: var(--accent); }
+
+    /* Error */
+    .error-box {
+      background: #FFF1F2; border: 1px solid rgba(244,63,94,.2);
+      border-radius: 10px; padding: 11px 14px;
+      display: none; align-items: center; gap: 10px;
+      font-size: 13px; color: #9F1239; margin-bottom: 16px;
+      animation: fadeUp .3s ease both;
+    }
+    .error-box.show { display: flex; }
+    .error-box i { color: var(--rose); flex-shrink: 0; }
+
+    /* Submit button */
+    .btn-login {
+      width: 100%; padding: 13px;
+      border: none; border-radius: 11px;
+      font-size: 15px; font-weight: 700;
+      font-family: inherit; cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      transition: all .2s cubic-bezier(.4,0,.2,1);
+      margin-top: 4px;
+      animation: fadeUp .4s .4s ease both;
+    }
+    .btn-login.mahasiswa  { background: linear-gradient(135deg, var(--green), var(--teal)); color: #fff; box-shadow: 0 6px 20px rgba(16,185,129,.3); }
+    .btn-login.admin_ukm  { background: linear-gradient(135deg, var(--accent), #7C3AED); color: #fff; box-shadow: 0 6px 20px rgba(79,106,240,.35); }
+    .btn-login.super_admin{ background: linear-gradient(135deg, var(--rose), #F97316); color: #fff; box-shadow: 0 6px 20px rgba(244,63,94,.3); }
+    .btn-login:hover:not(:disabled) { transform: translateY(-2px); filter: brightness(1.06); }
+    .btn-login:disabled { opacity: .55; cursor: not-allowed; transform: none; filter: none; }
+
+    /* Footer note */
+    .form-footer-note {
+      margin-top: 20px; text-align: center;
+      font-size: 11px; color: var(--soft); line-height: 1.6;
+      animation: fadeUp .4s .45s ease both;
+    }
+
+    /* ── LOADING OVERLAY ── */
+    .loading-overlay {
+      display: none; position: fixed; inset: 0;
+      background: rgba(15,27,76,.6); backdrop-filter: blur(6px);
+      z-index: 999; align-items: center; justify-content: center;
+      flex-direction: column; gap: 16px;
+    }
+    .loading-overlay.show { display: flex; }
+    .spin-ring {
+      width: 52px; height: 52px; border-radius: 50%;
+      border: 3px solid rgba(255,255,255,.15);
+      border-top-color: #fff;
+      animation: spin .8s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-overlay p { color: #fff; font-size: 14px; font-weight: 600; }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .login-card { grid-template-columns: 1fr; max-width: 440px; }
+      .left-panel { display: none; }
+      .right-panel { padding: 40px 32px; }
+    }
+    @media (max-width: 440px) {
+      .right-panel { padding: 32px 24px; }
+      .role-tabs { grid-template-columns: repeat(3,1fr); gap: 6px; }
+      .role-tab { padding: 8px 4px; }
+      .rt-icon { width: 28px !important; height: 28px !important; font-size: 13px !important; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- Background -->
+<div class="bg-orb orb-1"></div>
+<div class="bg-orb orb-2"></div>
+<div class="bg-orb orb-3"></div>
+
+<!-- Loading overlay -->
+<div class="loading-overlay" id="loading">
+  <div class="spin-ring"></div>
+  <p id="loading-text">Masuk sebagai Mahasiswa…</p>
+</div>
+
+<!-- Card -->
+<div class="login-card">
+
+  <!-- ════ LEFT ════ -->
+  <div class="left-panel">
+    <div>
+      <div class="brand">
+        <div class="brand-icon"><i class="fas fa-graduation-cap"></i></div>
+        <div class="brand-text">
+          <h1>SIGMA</h1>
+          <p>Sistem Informasi Organisasi Mahasiswa</p>
+        </div>
+      </div>
+      <div class="left-body">
+        <h2>Satu portal untuk semua<br><span>kegiatan UKM</span></h2>
+        <p>Kelola pendaftaran, kegiatan, keanggotaan, dan struktur organisasi seluruh UKM Politeknik Negeri Semarang dalam satu sistem terintegrasi.</p>
+        <div class="feature-list">
+          <div class="feature-item"><div class="feature-dot fd-blue"><i class="fas fa-users"></i></div>Manajemen keanggotaan UKM</div>
+          <div class="feature-item"><div class="feature-dot fd-teal"><i class="fas fa-calendar-check"></i></div>Timeline kegiatan & rapat</div>
+          <div class="feature-item"><div class="feature-dot fd-amber"><i class="fas fa-clipboard-list"></i></div>Proses pendaftaran bertahap</div>
+          <div class="feature-item"><div class="feature-dot fd-rose"><i class="fas fa-sitemap"></i></div>Struktur organisasi visual</div>
+        </div>
+      </div>
+    </div>
+    <div class="left-footer">
+      Politeknik Negeri Semarang · SIGMA v2.0<br>
+      Hanya dapat diakses oleh Civitas Akademik Polines
+    </div>
+  </div>
+
+  <!-- ════ RIGHT ════ -->
+  <div class="right-panel">
+    <div class="panel-head">
+      <h2>Selamat Datang 👋</h2>
+      <p>Pilih role untuk masuk ke SIGMA</p>
+    </div>
+
+    <!-- Role tabs -->
+    <div class="role-tabs">
+      <div class="role-tab rt-mahasiswa active" onclick="selectRole('mahasiswa',this)" id="tab-mahasiswa">
+        <div class="rt-icon"><i class="fas fa-user-graduate"></i></div>
+        <div class="rt-label">Mahasiswa</div>
+      </div>
+      <div class="role-tab rt-adminukm" onclick="selectRole('admin_ukm',this)" id="tab-adminukm">
+        <div class="rt-icon"><i class="fas fa-users-gear"></i></div>
+        <div class="rt-label">Admin UKM</div>
+      </div>
+      <div class="role-tab rt-superadmin" onclick="selectRole('super_admin',this)" id="tab-superadmin">
+        <div class="rt-icon"><i class="fas fa-shield-halved"></i></div>
+        <div class="rt-label">Super Admin</div>
+      </div>
+    </div>
+
+    <!-- Error -->
+    <div class="error-box" id="error-box">
+      <i class="fas fa-circle-exclamation"></i>
+      <span id="error-text">Username atau password salah.</span>
+    </div>
+
+    <!-- Form -->
+    <form id="loginForm" onsubmit="handleLogin(event)">
+      <div class="form-group">
+        <label class="form-label">Username</label>
+        <div class="input-wrap">
+          <input type="text" class="form-input" id="username" placeholder="Masukkan username…" autocomplete="username" oninput="hideError()">
+          <i class="fas fa-user input-icon"></i>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Password</label>
+        <div class="input-wrap">
+          <input type="password" class="form-input" id="password" placeholder="Masukkan password…" autocomplete="current-password" oninput="hideError()">
+          <i class="fas fa-lock input-icon"></i>
+          <button type="button" class="pw-toggle" onclick="togglePassword()" id="pw-eye">
+            <i class="fas fa-eye" id="pw-eye-icon"></i>
+          </button>
+        </div>
+      </div>
+
+      <button type="submit" class="btn-login mahasiswa" id="btn-login">
+        <i class="fas fa-arrow-right-to-bracket"></i>
+        <span id="btn-text">Masuk sebagai Mahasiswa</span>
+      </button>
+    </form>
+
+    <div class="form-footer-note">
+      SIGMA hanya dapat diakses oleh Civitas Akademik<br>Politeknik Negeri Semarang
+    </div>
+  </div>
+
+</div>
+
+<script>
+  /* ══ DATA ══ */
+  const ROLES = {
+    mahasiswa: {
+      label:    'Mahasiswa',
+      username: '43323210',
+      password: '321',
+      btnClass: 'mahasiswa',
+      redirect: '/frontend/src/pages/user/beranda.html',
+    },
+    admin_ukm: {
+      label:    'Admin UKM',
+      username: 'bem',
+      password: 'bem',
+      btnClass: 'admin_ukm',
+      redirect: '/frontend/src/pages/admin-ukm/dashboard.php',
+    },
+    super_admin: {
+      label:    'Super Admin',
+      username: 'admin',
+      password: 'admin',
+      btnClass: 'super_admin',
+      redirect: '/frontend/src/pages/admin/dashboard.html',
+    },
+  };
+
+  let currentRole = 'mahasiswa';
+
+  /* ══ SELECT ROLE — auto isi username & password ══ */
+  function selectRole(role, el) {
+    currentRole = role;
+    const cfg = ROLES[role];
+
+    // Update tabs
+    document.querySelectorAll('.role-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+
+    // Auto-fill kredensial langsung
+    const uEl = document.getElementById('username');
+    const pEl = document.getElementById('password');
+    uEl.value = cfg.username;
+    pEl.value = cfg.password;
+
+    // Update button style & label
+    const btn = document.getElementById('btn-login');
+    btn.className = 'btn-login ' + cfg.btnClass;
+    document.getElementById('btn-text').textContent = `Masuk sebagai ${cfg.label}`;
+
+    hideError();
+  }
+
+  /* ══ TOGGLE PASSWORD ══ */
+  function togglePassword() {
+    const input = document.getElementById('password');
+    const icon  = document.getElementById('pw-eye-icon');
+    if (input.type === 'password') {
+      input.type = 'text';
+      icon.className = 'fas fa-eye-slash';
+    } else {
+      input.type = 'password';
+      icon.className = 'fas fa-eye';
+    }
+  }
+
+  /* ══ ERROR ══ */
+  function showError(msg) {
+    const box = document.getElementById('error-box');
+    document.getElementById('error-text').textContent = msg;
+    box.classList.add('show');
+  }
+  function hideError() { document.getElementById('error-box').classList.remove('show'); }
+
+  /* ══ LOADING ══ */
+  function showLoading(msg) {
+    document.getElementById('loading-text').textContent = msg || 'Memuat…';
+    document.getElementById('loading').classList.add('show');
+  }
+  function hideLoading() { document.getElementById('loading').classList.remove('show'); }
+
+  /* ══ HANDLE LOGIN ══ */
+  async function handleLogin(e) {
+    e.preventDefault();
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value.trim();
+
+    if (!username) { showError('Username tidak boleh kosong.'); return; }
+    if (!password) { showError('Password tidak boleh kosong.'); return; }
+
+    const btn = document.getElementById('btn-login');
+    btn.disabled = true;
+    btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> <span>Memverifikasi…</span>';
+    hideError();
+
+    try {
+      const res = await fetch('/backend/controllers/mahasiswa/login.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password }),
+      });
+
+      if (!res.ok) throw new Error('Server error');
+
+      const data = await res.json();
+
+      if (data.status === 'success') {
+        const role = data.user?.role || currentRole;
+        const cfg  = ROLES[role] || ROLES[currentRole];
+        showLoading(`Masuk sebagai ${cfg.label}…`);
+
+        setTimeout(() => {
+          if (role === 'admin_ukm' && data.user?.id_ukm) {
+            window.location.href = `/frontend/src/pages/admin-ukm/dashboard.php?id_ukm=${data.user.id_ukm}`;
+          } else {
+            window.location.href = cfg.redirect;
+          }
+        }, 600);
+      } else {
+        showError(data.message || 'Username atau password salah.');
+      }
+    } catch {
+      showError('Tidak dapat terhubung ke server. Pastikan backend sudah berjalan.');
+    } finally {
+      btn.disabled = false;
+      const cfg = ROLES[currentRole];
+      btn.className = 'btn-login ' + cfg.btnClass;
+      btn.innerHTML = `<i class="fas fa-arrow-right-to-bracket"></i><span>Masuk sebagai ${cfg.label}</span>`;
+      hideLoading();
+    }
+  }
+
+  /* ══ INIT — isi default role mahasiswa saat halaman pertama dibuka ══ */
+  document.addEventListener('DOMContentLoaded', () => {
+    const uEl = document.getElementById('username');
+    const pEl = document.getElementById('password');
+    const cfg = ROLES[currentRole];
+    uEl.value = cfg.username;
+    pEl.value = cfg.password;
+  });
+</script>
+</body>
+</html>
