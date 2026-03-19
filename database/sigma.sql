@@ -6,7 +6,7 @@
 -- Waktu pembuatan: 24 Feb 2026 pada 16.10
 -- Versi server: 8.0.30
 -- Versi PHP: 8.1.10
-
+SET SESSION sql_require_primary_key = 0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";

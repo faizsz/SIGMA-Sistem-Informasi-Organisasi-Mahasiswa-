@@ -1,17 +1,19 @@
 <?php
-// Koneksi ke database menggunakan PDO
-$host = 'localhost';
-$dbname = 'sigma';
-$username = 'root';
-$password = '';
+$host     = 'sigma-db-faizakmall-d.j.aivencloud.com';
+$port     = '22892';
+$dbname   = 'defaultdb';
+$username = 'avnadmin';
+$password = 'AVNS_m62ILEHcEWIeqFEcHyZ'; // ganti dengan password asli dari Aiven
 
 try {
-    // Membuat koneksi PDO ke database
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname", $username, $password);
-    // Mengatur atribut PDO untuk menampilkan error jika terjadi kesalahan
+    $pdo = new PDO(
+        "mysql:host=$host;port=$port;dbname=$dbname;charset=utf8mb4",
+        $username,
+        $password,
+        [PDO::MYSQL_ATTR_SSL_CA => true]
+    );
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
-    // Menampilkan pesan error jika koneksi gagal
     die("Koneksi ke database gagal: " . $e->getMessage());
 }
 ?>

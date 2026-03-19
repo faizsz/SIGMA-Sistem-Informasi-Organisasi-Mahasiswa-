@@ -1,0 +1,8 @@
+{
+    "name": "faizakmal/sigma",
+    "description": "Sistem Informasi Organisasi Mahasiswa - Politeknik Negeri Semarang",
+    "type": "project",
+    "require": {
+        "php": ">=8.1"
+    }
+}
