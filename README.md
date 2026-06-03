@@ -8,10 +8,6 @@
 ![AdminLTE](https://img.shields.io/badge/AdminLTE-3.2-3C8DBC?style=flat-square)
 ![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
 <img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/95dbba8b-d644-4bde-abe3-69b67cd02078" />
-<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/1a4624c5-b922-4bc1-bead-604977a017fe" />
-<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/6717ad7f-f7cf-4f9d-8de0-1cf8e8986685" />
-<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/2b37be80-3912-47f2-a52e-11ec17c4032c" />
-
 
 ---
 
@@ -24,6 +20,7 @@ Project ini dikembangkan sebagai bagian dari tugas akhir Program Studi D4 Teknol
 
 ## Fitur Utama
 
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/1a4624c5-b922-4bc1-bead-604977a017fe" />
 ### Mahasiswa
 - Melihat daftar UKM dan detail informasi tiap UKM
 - Mendaftar UKM melalui proses seleksi 3 tahap
@@ -31,6 +28,7 @@ Project ini dikembangkan sebagai bagian dari tugas akhir Program Studi D4 Teknol
 - Memantau status pendaftaran secara realtime
 - Melihat timeline kegiatan dan struktur organisasi UKM
 
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/2b37be80-3912-47f2-a52e-11ec17c4032c" />
 ### Admin UKM
 - Dashboard statistik anggota, kegiatan, dan pendaftar
 - Manajemen profil UKM (nama, visi, misi, logo, banner)
@@ -40,6 +38,7 @@ Project ini dikembangkan sebagai bagian dari tugas akhir Program Studi D4 Teknol
 - Catat notulensi dan dokumentasi rapat
 - Atur periode pendaftaran dengan jadwal per tahap
 
+<img width="1919" height="1079" alt="image" src="https://github.com/user-attachments/assets/6717ad7f-f7cf-4f9d-8de0-1cf8e8986685" />
 ### Super Admin
 - Manajemen data mahasiswa
 - Manajemen data UKM
