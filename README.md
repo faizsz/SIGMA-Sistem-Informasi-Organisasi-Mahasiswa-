@@ -13,8 +13,9 @@
 
 ## Tentang Project
 
-SIGMA adalah sistem informasi berbasis web yang dirancang untuk mengelola seluruh aktivitas Unit Kegiatan Mahasiswa (UKM) di Politeknik Negeri Semarang. Sistem ini mengintegrasikan proses pendaftaran anggota, manajemen kegiatan, struktur organisasi, dan dokumentasi rapat dalam satu platform terpusat.
-Project ini dikembangkan sebagai bagian dari tugas akhir Program Studi D4 Teknologi Rekayasa Komputer, Politeknik Negeri Semarang.
+**SIGMA** adalah sistem informasi manajemen organisasi berbasis web yang dirancang untuk mendigitalisasi dan mengintegrasikan seluruh ekosistem aktivitas Unit Kegiatan Mahasiswa (UKM) di lingkungan kampus. Sistem ini hadir sebagai solusi atas kendala manajemen konvensional, dengan menyatukan proses pendaftaran anggota, pengelolaan timeline kerja, struktur organisasi, hingga pengarsipan administrasi rapat ke dalam satu platform terpusat.
+
+Pengembangan platform ini difokuskan pada pemecahan masalah (case study) tata kelola organisasi mahasiswa, yang diimplementasikan sebagai bagian dari proyek aplikatif dalam program studi D4 Teknologi Rekayasa Komputer, Politeknik Negeri Semarang.
 
 ---
 
