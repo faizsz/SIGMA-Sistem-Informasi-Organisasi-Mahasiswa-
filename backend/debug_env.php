@@ -2,9 +2,9 @@
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
 
+// Dump ALL environment variables
 echo json_encode([
-    'getenv_DB_HOST' => getenv('DB_HOST'),
-    'ENV_DB_HOST' => $_ENV['DB_HOST'] ?? 'NOT SET',
-    'SERVER_DB_HOST' => $_SERVER['DB_HOST'] ?? 'NOT SET',
-    'port' => getenv('PORT'),
+    'all_getenv' => getenv(),
+    'all_ENV' => $_ENV,
+    'all_SERVER_keys' => array_keys($_SERVER),
 ]);
