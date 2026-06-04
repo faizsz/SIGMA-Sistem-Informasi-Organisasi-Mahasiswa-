@@ -12,23 +12,34 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     exit();
 }
 
-// Serve file static (html, css, js, images) langsung
+// Parse request URI
 $uri = $_SERVER['REQUEST_URI'];
 $path = parse_url($uri, PHP_URL_PATH);
 $file = __DIR__ . $path;
 
+// Serve static files langsung
 if ($path !== '/' && is_file($file)) {
-    // Biar PHP built-in server handle file static sendiri
+    $ext = pathinfo($file, PATHINFO_EXTENSION);
+    
+    // Untuk file PHP, set working directory ke folder file tersebut
+    if ($ext === 'php') {
+        chdir(dirname($file));
+        include $file;
+        return;
+    }
+    
+    // File static lainnya, biar built-in server handle
     return false;
 }
 
 // Default: serve index.html
-if ($path === '/') {
-    include __DIR__ . '/index.html';
-    return;
+if ($path === '/' || !is_file($file)) {
+    if (is_file(__DIR__ . '/index.html')) {
+        include __DIR__ . '/index.html';
+        return;
+    }
 }
 
-// Kalau file tidak ada, return 404
 http_response_code(404);
 echo json_encode(['status' => 'error', 'message' => 'Not found']);
 ?>
