@@ -1,4 +1,4 @@
-// Load data mahasiswa saat halaman dimuat
+﻿// Load data mahasiswa saat halaman dimuat
 document.addEventListener('DOMContentLoaded', async function() {
     try {
         const response = await fetch('/backend/controllers/mahasiswa/get_mahasiswa_form.php');
@@ -85,7 +85,7 @@ document.getElementById('registrationForm').addEventListener('submit', async fun
                 showConfirmButton: false,
                 timer: 1500
             }).then(() => {
-                window.location.href = `/frontend/src/pages/user/status_pending.php?tahap=1`;
+                window.location.href = `/frontend/src/pages/user/status_pending.html?tahap=1`;
             });
         } else {
             Swal.fire({

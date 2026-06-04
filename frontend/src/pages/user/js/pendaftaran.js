@@ -1,4 +1,4 @@
-// Add this script right after the registration-cta section
+﻿// Add this script right after the registration-cta section
 document.addEventListener('DOMContentLoaded', async function() {
     try {
         // Get UKM ID from URL
@@ -106,19 +106,19 @@ async function handleDaftar() {
                     window.location.href = `/frontend/src/pages/user/form_daftar1.html?id_ukm=${id_ukm}`;
                     break;
                 case 'pending_tahap1':
-                    window.location.href = `/frontend/src/pages/user/status_pending.php?tahap=1`;
+                    window.location.href = `/frontend/src/pages/user/status_pending.html?tahap=1`;
                     break;
                 case 'acc_tahap1':
                     window.location.href = `/frontend/src/pages/user/acc_form1.html?id_ukm=${id_ukm}`;
                     break;
                 case 'pending_tahap2':
-                    window.location.href = `/frontend/src/pages/user/status_pending.php?tahap=2`;
+                    window.location.href = `/frontend/src/pages/user/status_pending.html?tahap=2`;
                     break;
                 case 'acc_tahap2':
                     window.location.href = `/frontend/src/pages/user/acc_form2.html?id_ukm=${id_ukm}`;
                     break;
                 case 'pending_tahap3':
-                    window.location.href = `/frontend/src/pages/user/status_pending.php?tahap=3`;
+                    window.location.href = `/frontend/src/pages/user/status_pending.html?tahap=3`;
                     break;
                 case 'acc_tahap3':
                     window.location.href = `/frontend/src/pages/user/acc_form3.html?id_ukm=${id_ukm}`;

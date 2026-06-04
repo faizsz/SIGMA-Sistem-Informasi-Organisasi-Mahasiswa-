@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+﻿document.addEventListener('DOMContentLoaded', function() {
     document.querySelectorAll('input[type="file"]').forEach(input => {
         input.addEventListener('change', function() {
             const maxSize = 2 * 1024 * 1024;
@@ -110,7 +110,7 @@ document.getElementById('registrationForm').addEventListener('submit', async fun
                 showConfirmButton: false,
                 timer: 1500
             }).then(() => {
-                window.location.href = `/frontend/src/pages/user/status_pending.php?tahap=3`;
+                window.location.href = `/frontend/src/pages/user/status_pending.html?tahap=3`;
             });
         } else {
             Swal.fire({

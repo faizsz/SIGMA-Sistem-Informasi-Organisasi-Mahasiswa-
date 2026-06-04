@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', async function() {
+﻿document.addEventListener('DOMContentLoaded', async function() {
     const urlParams = new URLSearchParams(window.location.search);
     const id_ukm = urlParams.get('id_ukm');
 
@@ -116,7 +116,7 @@ document.getElementById('registrationForm').addEventListener('submit', async fun
                 showConfirmButton: false,
                 timer: 1500
             }).then(() => {
-                window.location.href = `/frontend/src/pages/user/status_pending.php?tahap=2`;
+                window.location.href = `/frontend/src/pages/user/status_pending.html?tahap=2`;
             });
         } else {
             Swal.fire({

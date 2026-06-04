@@ -397,7 +397,7 @@
       username: 'bem',
       password: 'bem',
       btnClass: 'admin_ukm',
-      redirect: '/frontend/src/pages/admin-ukm/dashboard.php',
+      redirect: '/frontend/src/pages/admin-ukm/dashboard.html',
     },
     super_admin: {
       label:    'Super Admin',
@@ -491,12 +491,16 @@
         const cfg  = ROLES[role] || ROLES[currentRole];
         showLoading(`Masuk sebagai ${cfg.label}…`);
 
-        setTimeout(() => {
-          if (role === 'admin_ukm' && data.user?.id_ukm) {
-            window.location.href = `/frontend/src/pages/admin-ukm/dashboard.php?id_ukm=${data.user.id_ukm}`;
-          } else {
-            window.location.href = cfg.redirect;
+        // Simpan data user ke sessionStorage
+        if (data.user) {
+          sessionStorage.setItem('sigma_user', JSON.stringify(data.user));
+          if (data.user.id_ukm) {
+            sessionStorage.setItem('sigma_id_ukm', data.user.id_ukm);
           }
+        }
+
+        setTimeout(() => {
+          window.location.href = cfg.redirect;
         }, 600);
       } else {
         showError(data.message || 'Username atau password salah.');
