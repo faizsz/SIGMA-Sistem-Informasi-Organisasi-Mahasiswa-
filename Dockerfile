@@ -1,5 +1,8 @@
 FROM php:8.1-apache
 
+# Disable conflicting MPM modules, keep prefork
+RUN a2dismod mpm_event mpm_worker 2>/dev/null; a2enmod mpm_prefork
+
 # Enable Apache mod_rewrite dan headers
 RUN a2enmod rewrite headers
 
@@ -15,24 +18,13 @@ COPY . .
 # Set permission
 RUN chown -R www-data:www-data /var/www/html
 
-# Default port (Railway akan override via env)
+# Default port
 ENV PORT=80
 
-# Script startup: ganti port Apache sesuai $PORT saat runtime
-RUN echo '#!/bin/bash\n\
-sed -i "s/Listen 80/Listen ${PORT}/g" /etc/apache2/ports.conf\n\
-sed -i "s/:80/:${PORT}/g" /etc/apache2/sites-available/000-default.conf\n\
-apache2-foreground' > /usr/local/bin/start.sh && chmod +x /usr/local/bin/start.sh
+# Startup script: set Apache port dari env $PORT saat runtime
+RUN printf '#!/bin/bash\nsed -i "s/Listen 80/Listen ${PORT}/g" /etc/apache2/ports.conf\nsed -i "s/:80/:${PORT}/g" /etc/apache2/sites-available/000-default.conf\napache2-foreground\n' > /usr/local/bin/start.sh && chmod +x /usr/local/bin/start.sh
 
-# Konfigurasi Apache DocumentRoot
-RUN echo '<VirtualHost *:80>\n\
-    DocumentRoot /var/www/html\n\
-    <Directory /var/www/html>\n\
-        AllowOverride All\n\
-        Require all granted\n\
-    </Directory>\n\
-</VirtualHost>' > /etc/apache2/sites-available/000-default.conf
-
-EXPOSE 80
+# Apache VirtualHost config
+RUN printf '<VirtualHost *:80>\n    DocumentRoot /var/www/html\n    <Directory /var/www/html>\n        AllowOverride All\n        Require all granted\n    </Directory>\n</VirtualHost>\n' > /etc/apache2/sites-available/000-default.conf
 
 CMD ["/usr/local/bin/start.sh"]
