@@ -1,5 +1,5 @@
-// Fetch data from the PHP backend
-fetch('/backend/controllers/get_mahasiswa.php')
+﻿// Fetch data from the PHP backend
+fetch(API_BASE + '/backend/controllers/get_mahasiswa.php')
     .then(response => response.json())
     .then(data => {
         if (data.length > 0) {
@@ -13,7 +13,7 @@ fetch('/backend/controllers/get_mahasiswa.php')
 
     // Logout function
     function logout() {
-    fetch('/backend/controllers/mahasiswa/logout.php')
+    fetch(API_BASE + '/backend/controllers/mahasiswa/logout.php')
         .then(() => {
             window.location.href = "/index.html";
         })

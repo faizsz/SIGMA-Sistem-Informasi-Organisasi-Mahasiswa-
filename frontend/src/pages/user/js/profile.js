@@ -1,7 +1,7 @@
-document.addEventListener("DOMContentLoaded", function() {
+﻿document.addEventListener("DOMContentLoaded", function() {
     initializeEditProfile();
     
-    fetch('/backend/controllers/mahasiswa/auth.php')
+    fetch(API_BASE + '/backend/controllers/mahasiswa/auth.php')
         .then(response => response.json())
         .then(data => {
             if (!data.authenticated) {
@@ -77,7 +77,7 @@ function initializeEditProfile() {
         }
 
         try {
-            const response = await fetch('/backend/controllers/mahasiswa/change_password.php', {
+            const response = await fetch(API_BASE + '/backend/controllers/mahasiswa/change_password.php', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -167,7 +167,7 @@ function initializeEditProfile() {
                 }
             });
     
-            const response = await fetch('/backend/controllers/mahasiswa/profile.php', {
+            const response = await fetch(API_BASE + '/backend/controllers/mahasiswa/profile.php', {
                 method: 'POST',
                 body: formData
             });
@@ -224,7 +224,7 @@ function initializeEditProfile() {
 }
 
 function loadProfileData() {
-    fetch('/backend/controllers/mahasiswa/get_mahasiswa.php')
+    fetch(API_BASE + '/backend/controllers/mahasiswa/get_mahasiswa.php')
         .then(response => response.json())
         .then(data => {
             if (data.profile) {
@@ -317,8 +317,8 @@ function updateUkmContainer(containerId, data, emptyMessage) {
 async function loadCurrentProfileData() {
     try {
         const [profileRes, prodiRes] = await Promise.all([
-            fetch('/backend/controllers/mahasiswa/get_mahasiswa.php'),
-            fetch('/backend/controllers/mahasiswa/get_program_studi.php')
+            fetch(API_BASE + '/backend/controllers/mahasiswa/get_mahasiswa.php'),
+            fetch(API_BASE + '/backend/controllers/mahasiswa/get_program_studi.php')
         ]);
 
         const [profileData, prodiData] = await Promise.all([

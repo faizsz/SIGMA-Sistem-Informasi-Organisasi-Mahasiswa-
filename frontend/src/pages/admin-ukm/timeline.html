@@ -200,6 +200,7 @@
     }
     @media (max-width:480px) { .stats-row{grid-template-columns:1fr} .topbar{padding:0 16px} .admin-name{display:none} }
   </style>
+  <script src="/frontend/src/utils/config.js"></script>
 </head>
 <body>
 
@@ -483,7 +484,7 @@
     if(el) el.querySelector('h3').textContent=nama||'—';
   }
   function loadUkmProfile(){
-    fetch(`/backend/controllers/admin-ukm/profile.php?id_ukm=${id_ukm}`)
+    fetch(`${API_BASE}/backend/controllers/admin-ukm/profile.php?id_ukm=${id_ukm}`)
       .then(r=>r.json()).then(d=>updateSidebarUkmName(d.nama_ukm)).catch(()=>{});
   }
 
@@ -500,7 +501,7 @@
 
   /* ── LOAD TIMELINE ── */
   function loadTimeline(){
-    fetch(`/backend/controllers/admin-ukm/timeline.php?id_ukm=${id_ukm}`)
+    fetch(`${API_BASE}/backend/controllers/admin-ukm/timeline.php?id_ukm=${id_ukm}`)
       .then(r=>r.json())
       .then(data=>{
         allTimeline=Array.isArray(data)?data:[];
@@ -594,7 +595,7 @@
   }
 
   function editTimeline(id){
-    fetch(`/backend/controllers/admin-ukm/timeline.php?id_timeline=${id}`)
+    fetch(`${API_BASE}/backend/controllers/admin-ukm/timeline.php?id_timeline=${id}`)
       .then(r=>r.json())
       .then(d=>{
         document.getElementById('id_timeline').value      = d.id_timeline;
@@ -624,7 +625,7 @@
     const fd=new FormData(this);
     fd.append('id_ukm',id_ukm);
     fd.set('status',document.getElementById('status').checked?'active':'inactive');
-    fetch('/backend/controllers/admin-ukm/timeline.php',{method:'POST',body:fd})
+    fetch(API_BASE + '/backend/controllers/admin-ukm/timeline.php',{method:'POST',body:fd})
       .then(r=>r.json())
       .then(res=>{
         if(res.status==='success'){Swal.fire({icon:'success',title:'Berhasil!',text:'Kegiatan berhasil disimpan',timer:1500,showConfirmButton:false});closeModal('modal-kegiatan');loadTimeline();}
@@ -638,7 +639,7 @@
     Swal.fire({title:'Hapus kegiatan ini?',text:'Semua data panitia dan rapat terkait juga akan dihapus!',icon:'warning',showCancelButton:true,confirmButtonColor:'#F43F5E',cancelButtonColor:'#94A3B8',confirmButtonText:'Ya, hapus',cancelButtonText:'Batal'})
       .then(r=>{
         if(r.isConfirmed){
-          fetch(`/backend/controllers/admin-ukm/timeline.php?id_timeline=${id}`,{method:'DELETE'})
+          fetch(`${API_BASE}/backend/controllers/admin-ukm/timeline.php?id_timeline=${id}`,{method:'DELETE'})
             .then(r=>r.json())
             .then(res=>{
               if(res.status==='success'){Swal.fire({icon:'success',title:'Terhapus!',timer:1500,showConfirmButton:false});loadTimeline();}
@@ -674,7 +675,7 @@
     document.getElementById('modal-panitia').classList.add('open');
   }
   function loadPanitia(id){
-    fetch(`/backend/controllers/admin-ukm/panitia.php?id_timeline=${id}`)
+    fetch(`${API_BASE}/backend/controllers/admin-ukm/panitia.php?id_timeline=${id}`)
       .then(r=>r.json())
       .then(data=>{
         const tbody=document.getElementById('tbody-panitia');
@@ -689,13 +690,13 @@
       });
   }
   function loadMahasiswaDropdown(){
-    fetch(`/backend/controllers/admin-ukm/panitia.php?action=get_mahasiswa&id_ukm=${id_ukm}`)
+    fetch(`${API_BASE}/backend/controllers/admin-ukm/panitia.php?action=get_mahasiswa&id_ukm=${id_ukm}`)
       .then(r=>r.json()).then(data=>{
         document.getElementById('nim_panitia').innerHTML='<option value="">Pilih Mahasiswa</option>'+(data||[]).map(m=>`<option value="${m.nim}">${m.nim} — ${m.nama_lengkap}</option>`).join('');
       });
   }
   function loadJabatanDropdown(){
-    fetch('/backend/controllers/admin-ukm/panitia.php?action=get_jabatan')
+    fetch(API_BASE + '/backend/controllers/admin-ukm/panitia.php?action=get_jabatan')
       .then(r=>r.json()).then(data=>{
         document.getElementById('jabatan_panitia').innerHTML='<option value="">Pilih Jabatan</option>'+(data||[]).map(j=>`<option value="${j.id_jabatan_panitia}">${j.nama_jabatan}</option>`).join('');
       });
@@ -706,14 +707,14 @@
     const id_tl=document.getElementById('id_timeline_panitia').value;
     if(!nim||!jabatan){Swal.fire({icon:'warning',title:'Lengkapi data',text:'Pilih mahasiswa dan jabatan terlebih dahulu.'});return;}
     const fd=new FormData();fd.append('nim',nim);fd.append('id_jabatan_panitia',jabatan);fd.append('id_timeline',id_tl);
-    fetch('/backend/controllers/admin-ukm/panitia.php',{method:'POST',body:fd})
+    fetch(API_BASE + '/backend/controllers/admin-ukm/panitia.php',{method:'POST',body:fd})
       .then(r=>r.json()).then(res=>{
         if(res.status==='success'){loadPanitia(id_tl);loadTimeline();}
         else Swal.fire({icon:'error',title:'Gagal!',text:res.message});
       });
   }
   function deletePanitia(id){
-    fetch(`/backend/controllers/admin-ukm/panitia.php?id_panitia=${id}`,{method:'DELETE'})
+    fetch(`${API_BASE}/backend/controllers/admin-ukm/panitia.php?id_panitia=${id}`,{method:'DELETE'})
       .then(r=>r.json()).then(res=>{
         if(res.status==='success'){const id_tl=document.getElementById('id_timeline_panitia').value;loadPanitia(id_tl);loadTimeline();}
       });
@@ -727,7 +728,7 @@
     document.getElementById('modal-rapat').classList.add('open');
   }
   function loadRapat(id){
-    fetch(`/backend/controllers/admin-ukm/rapat.php?id_timeline=${id}`)
+    fetch(`${API_BASE}/backend/controllers/admin-ukm/rapat.php?id_timeline=${id}`)
       .then(r=>r.json()).then(data=>{
         const tbody=document.getElementById('tbody-rapat');
         const list=Array.isArray(data)?data:(data.data||[]);
@@ -751,7 +752,7 @@
     const dok=document.getElementById('dokumentasi').files;
     if(notulensi) fd.append('notulensi',notulensi);
     for(let f of dok) fd.append('dokumentasi[]',f);
-    fetch('/backend/controllers/admin-ukm/rapat.php',{method:'POST',body:fd})
+    fetch(API_BASE + '/backend/controllers/admin-ukm/rapat.php',{method:'POST',body:fd})
       .then(r=>r.json()).then(res=>{
         if(res.status==='success'){
           document.getElementById('judul_rapat').value='';document.getElementById('tanggal_rapat').value='';
@@ -761,7 +762,7 @@
       });
   }
   function deleteRapat(id){
-    fetch(`/backend/controllers/admin-ukm/rapat.php?id_rapat=${id}`,{method:'DELETE'})
+    fetch(`${API_BASE}/backend/controllers/admin-ukm/rapat.php?id_rapat=${id}`,{method:'DELETE'})
       .then(r=>r.json()).then(res=>{
         if(res.status==='success'){const id_tl=document.getElementById('id_timeline_rapat').value;loadRapat(id_tl);loadTimeline();}
       });
@@ -774,7 +775,7 @@
 
   function logout(){
     Swal.fire({title:'Keluar dari SIGMA?',icon:'question',showCancelButton:true,confirmButtonColor:'#F43F5E',cancelButtonColor:'#94A3B8',confirmButtonText:'Ya, keluar',cancelButtonText:'Batal'})
-      .then(r=>{if(r.isConfirmed)fetch('/backend/controllers/logout.php').then(()=>window.location.href='/index.html').catch(()=>window.location.href='/index.html');});
+      .then(r=>{if(r.isConfirmed)fetch(API_BASE + '/backend/controllers/logout.php').then(()=>window.location.href='/index.html').catch(()=>window.location.href='/index.html');});
   }
 
   /* ── INIT ── */

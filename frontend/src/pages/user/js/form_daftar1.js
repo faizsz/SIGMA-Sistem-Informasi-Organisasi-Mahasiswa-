@@ -1,7 +1,7 @@
 ﻿// Load data mahasiswa saat halaman dimuat
 document.addEventListener('DOMContentLoaded', async function() {
     try {
-        const response = await fetch('/backend/controllers/mahasiswa/get_mahasiswa_form.php');
+        const response = await fetch(API_BASE + '/backend/controllers/mahasiswa/get_mahasiswa_form.php');
         const result = await response.json();
         
         if (result.status === 'success') {
@@ -56,7 +56,7 @@ document.getElementById('registrationForm').addEventListener('submit', async fun
     formData.append('motivasi', document.getElementById('motivasi').value);
 
     try {
-        const response = await fetch('/backend/controllers/submit_tahap1.php', {
+        const response = await fetch(API_BASE + '/backend/controllers/submit_tahap1.php', {
             method: 'POST',
             body: formData
         });

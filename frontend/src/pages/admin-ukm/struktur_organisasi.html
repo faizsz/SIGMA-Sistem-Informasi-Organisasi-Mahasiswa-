@@ -219,6 +219,7 @@
     }
     @media(max-width:480px){.stats-row{grid-template-columns:1fr}.topbar{padding:0 16px}.admin-name{display:none}}
   </style>
+  <script src="/frontend/src/utils/config.js"></script>
 </head>
 <body>
 
@@ -490,7 +491,7 @@
     if(el) el.querySelector('h3').textContent=nama||'—';
   }
   function loadUkmProfile(){
-    fetch(`/backend/controllers/admin-ukm/profile.php?id_ukm=${id_ukm}`)
+    fetch(`${API_BASE}/backend/controllers/admin-ukm/profile.php?id_ukm=${id_ukm}`)
       .then(r=>r.json()).then(d=>updateSidebarUkmName(d.nama_ukm)).catch(()=>{});
   }
 
@@ -515,7 +516,7 @@
   }
 
   function loadStruktur(){
-    fetch(`/backend/controllers/admin-ukm/struktur_organisasi.php?id_ukm=${id_ukm}`)
+    fetch(`${API_BASE}/backend/controllers/admin-ukm/struktur_organisasi.php?id_ukm=${id_ukm}`)
       .then(r=>r.json())
       .then(data=>{
         allStruktur=Array.isArray(data)?data:[];
@@ -616,7 +617,7 @@
   }
 
   function editPengurus(id){
-    fetch(`/backend/controllers/admin-ukm/struktur_organisasi.php?id_struktur=${id}`)
+    fetch(`${API_BASE}/backend/controllers/admin-ukm/struktur_organisasi.php?id_struktur=${id}`)
       .then(r=>r.json())
       .then(d=>{
         loadMahasiswaDropdown(d.nim);
@@ -646,7 +647,7 @@
     Swal.fire({title:'Hapus pengurus ini?',text:'Data akan dihapus permanen.',icon:'warning',showCancelButton:true,confirmButtonColor:'#F43F5E',cancelButtonColor:'#94A3B8',confirmButtonText:'Ya, hapus',cancelButtonText:'Batal'})
       .then(r=>{
         if(r.isConfirmed){
-          fetch(`/backend/controllers/admin-ukm/struktur_organisasi.php?id_struktur=${id}`,{method:'DELETE'})
+          fetch(`${API_BASE}/backend/controllers/admin-ukm/struktur_organisasi.php?id_struktur=${id}`,{method:'DELETE'})
             .then(r=>r.json())
             .then(res=>{
               if(res.status==='success'){Swal.fire({icon:'success',title:'Terhapus!',timer:1500,showConfirmButton:false});loadStruktur();}
@@ -661,7 +662,7 @@
     const btn=document.getElementById('btn-submit-pengurus');
     btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Menyimpan…';
     const fd=new FormData(this);fd.append('id_ukm',id_ukm);
-    fetch('/backend/controllers/admin-ukm/struktur_organisasi.php',{method:'POST',body:fd})
+    fetch(API_BASE + '/backend/controllers/admin-ukm/struktur_organisasi.php',{method:'POST',body:fd})
       .then(r=>r.json())
       .then(res=>{
         if(res.status==='success'){Swal.fire({icon:'success',title:'Berhasil!',text:'Data pengurus berhasil disimpan',timer:1500,showConfirmButton:false});closeModal('modal-pengurus');loadStruktur();}
@@ -695,7 +696,7 @@
   }
 
   function loadDivisiForPengurus(){
-    fetch(`/backend/controllers/admin-ukm/divisi.php?id_ukm=${id_ukm}`).then(r=>r.json()).then(data=>{
+    fetch(`${API_BASE}/backend/controllers/admin-ukm/divisi.php?id_ukm=${id_ukm}`).then(r=>r.json()).then(data=>{
       allDivisi=data||[];
       document.getElementById('id_divisi').innerHTML='<option value="">Pilih Divisi</option>'+allDivisi.map(d=>`<option value="${d.id_divisi}">${d.nama_divisi}</option>`).join('');
       document.getElementById('jabatan_id_divisi').innerHTML='<option value="">Pilih Divisi</option>'+allDivisi.map(d=>`<option value="${d.id_divisi}">${d.nama_divisi}</option>`).join('');
@@ -703,7 +704,7 @@
   }
 
   function loadJabatanByDivisi(id_divisi,selector){
-    return fetch(`/backend/controllers/admin-ukm/jabatan_divisi.php?id_divisi=${id_divisi}`)
+    return fetch(`${API_BASE}/backend/controllers/admin-ukm/jabatan_divisi.php?id_divisi=${id_divisi}`)
       .then(r=>r.json())
       .then(data=>{
         document.querySelector(selector).innerHTML='<option value="">Pilih Jabatan</option>'+(data||[]).map(j=>`<option value="${j.id_jabatan_divisi}">${j.nama_jabatan}</option>`).join('');
@@ -711,7 +712,7 @@
   }
 
   function loadPeriodeDropdown(){
-    fetch('/backend/controllers/admin-ukm/struktur_organisasi.php?action=get_periode').then(r=>r.json()).then(data=>{
+    fetch(API_BASE + '/backend/controllers/admin-ukm/struktur_organisasi.php?action=get_periode').then(r=>r.json()).then(data=>{
       document.getElementById('id_periode').innerHTML='<option value="">Pilih Periode</option>'+(data||[]).map(p=>`<option value="${p.id_periode}">${p.tahun_mulai} – ${p.tahun_selesai}</option>`).join('');
     });
   }
@@ -720,7 +721,7 @@
   function openModalDivisi(){loadDivisiData();loadDivisiForPengurus();document.getElementById('modal-divisi').classList.add('open');}
 
   function loadDivisiData(){
-    fetch(`/backend/controllers/admin-ukm/divisi.php?id_ukm=${id_ukm}`).then(r=>r.json()).then(data=>{
+    fetch(`${API_BASE}/backend/controllers/admin-ukm/divisi.php?id_ukm=${id_ukm}`).then(r=>r.json()).then(data=>{
       allDivisi=data||[];
       const tbody=document.getElementById('tbody-divisi');
       if(!allDivisi.length){tbody.innerHTML='<tr><td colspan="4" style="text-align:center;padding:20px;color:var(--text-soft);">Belum ada divisi</td></tr>';return;}
@@ -761,7 +762,7 @@
     fd.append('id_ukm',id_ukm);
     const id=document.getElementById('id_divisi_edit').value;
     if(id) fd.append('id_divisi',id);
-    fetch('/backend/controllers/admin-ukm/divisi.php',{method:'POST',body:fd})
+    fetch(API_BASE + '/backend/controllers/admin-ukm/divisi.php',{method:'POST',body:fd})
       .then(r=>r.json())
       .then(res=>{
         if(res.status==='success'){Swal.fire({icon:'success',title:'Berhasil!',timer:1200,showConfirmButton:false});resetFormDivisi();loadDivisiData();loadStruktur();}
@@ -772,7 +773,7 @@
   function deleteDivisi(id){
     Swal.fire({title:'Hapus divisi?',text:'Semua jabatan dalam divisi ini juga akan terhapus.',icon:'warning',showCancelButton:true,confirmButtonColor:'#F43F5E',cancelButtonColor:'#94A3B8',confirmButtonText:'Ya, hapus',cancelButtonText:'Batal'})
       .then(r=>{if(r.isConfirmed){
-        fetch(`/backend/controllers/admin-ukm/divisi.php?id_divisi=${id}`,{method:'DELETE'}).then(r=>r.json()).then(res=>{
+        fetch(`${API_BASE}/backend/controllers/admin-ukm/divisi.php?id_divisi=${id}`,{method:'DELETE'}).then(r=>r.json()).then(res=>{
           if(res.status==='success'){Swal.fire({icon:'success',title:'Terhapus!',timer:1200,showConfirmButton:false});loadDivisiData();loadStruktur();}
           else Swal.fire({icon:'error',title:'Gagal!',text:res.message});
         });
@@ -783,7 +784,7 @@
   function openModalJabatan(){loadDivisiForPengurus();loadJabatanData();document.getElementById('modal-jabatan').classList.add('open');}
 
   function loadJabatanData(){
-    fetch(`/backend/controllers/admin-ukm/jabatan_divisi.php?id_ukm=${id_ukm}`).then(r=>r.json()).then(data=>{
+    fetch(`${API_BASE}/backend/controllers/admin-ukm/jabatan_divisi.php?id_ukm=${id_ukm}`).then(r=>r.json()).then(data=>{
       const list=Array.isArray(data)?data:[];
       document.getElementById('tbody-jabatan').innerHTML=list.length
         ?list.map(j=>`<tr>
@@ -822,7 +823,7 @@
     fd.append('id_divisi',id_div);fd.append('nama_jabatan',nama);fd.append('hierarki',hier);
     const id=document.getElementById('id_jabatan_edit').value;
     if(id) fd.append('id_jabatan_divisi',id);
-    fetch('/backend/controllers/admin-ukm/jabatan_divisi.php',{method:'POST',body:fd})
+    fetch(API_BASE + '/backend/controllers/admin-ukm/jabatan_divisi.php',{method:'POST',body:fd})
       .then(r=>r.json())
       .then(res=>{
         if(res.status==='success'){Swal.fire({icon:'success',title:'Berhasil!',timer:1200,showConfirmButton:false});resetFormJabatan();loadJabatanData();}
@@ -833,7 +834,7 @@
   function deleteJabatan(id){
     Swal.fire({title:'Hapus jabatan?',icon:'warning',showCancelButton:true,confirmButtonColor:'#F43F5E',cancelButtonColor:'#94A3B8',confirmButtonText:'Ya, hapus',cancelButtonText:'Batal'})
       .then(r=>{if(r.isConfirmed){
-        fetch(`/backend/controllers/admin-ukm/jabatan_divisi.php?id_jabatan_divisi=${id}`,{method:'DELETE'}).then(r=>r.json()).then(res=>{
+        fetch(`${API_BASE}/backend/controllers/admin-ukm/jabatan_divisi.php?id_jabatan_divisi=${id}`,{method:'DELETE'}).then(r=>r.json()).then(res=>{
           if(res.status==='success'){Swal.fire({icon:'success',title:'Terhapus!',timer:1200,showConfirmButton:false});loadJabatanData();}
           else Swal.fire({icon:'error',title:'Gagal!',text:res.message});
         });
@@ -845,7 +846,7 @@
 
   function logout(){
     Swal.fire({title:'Keluar dari SIGMA?',icon:'question',showCancelButton:true,confirmButtonColor:'#F43F5E',cancelButtonColor:'#94A3B8',confirmButtonText:'Ya, keluar',cancelButtonText:'Batal'})
-      .then(r=>{if(r.isConfirmed)fetch('/backend/controllers/logout.php').then(()=>window.location.href='/index.html').catch(()=>window.location.href='/index.html');});
+      .then(r=>{if(r.isConfirmed)fetch(API_BASE + '/backend/controllers/logout.php').then(()=>window.location.href='/index.html').catch(()=>window.location.href='/index.html');});
   }
 
   /* ── INIT ── */

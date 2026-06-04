@@ -545,6 +545,7 @@
       .card-header { flex-direction: column; align-items: flex-start; }
     }
   </style>
+  <script src="/frontend/src/utils/config.js"></script>
 </head>
 <body>
 
@@ -775,7 +776,7 @@
 
   /* ── FETCH NAMA UKM DARI PROFILE ── */
   function loadUkmProfile() {
-    fetch(`/backend/controllers/admin-ukm/profile.php?id_ukm=${id_ukm}`)
+    fetch(`${API_BASE}/backend/controllers/admin-ukm/profile.php?id_ukm=${id_ukm}`)
       .then(r => r.json())
       .then(data => updateSidebarUkmName(data.nama_ukm))
       .catch(() => updateSidebarUkmName('UKM'));
@@ -899,7 +900,7 @@
   }
 
   function loadPeriodeDropdown() {
-    fetch('/backend/controllers/admin-ukm/keanggotaan.php?action=get_periode')
+    fetch(API_BASE + '/backend/controllers/admin-ukm/keanggotaan.php?action=get_periode')
       .then(r => r.json())
       .then(res => {
         if (res.status === 'success') {
@@ -911,7 +912,7 @@
   }
 
   function loadMahasiswaDropdown() {
-    fetch('/backend/controllers/admin-ukm/keanggotaan.php?action=get_mahasiswa')
+    fetch(API_BASE + '/backend/controllers/admin-ukm/keanggotaan.php?action=get_mahasiswa')
       .then(r => r.json())
       .then(res => {
         if (res.status === 'success') {
@@ -924,7 +925,7 @@
 
   /* ── EDIT ── */
   function editAnggota(id) {
-    fetch(`/backend/controllers/admin-ukm/keanggotaan.php?id_keanggotaan=${id}`)
+    fetch(`${API_BASE}/backend/controllers/admin-ukm/keanggotaan.php?id_keanggotaan=${id}`)
       .then(r => r.json())
       .then(res => {
         if (res.status === 'success') {
@@ -957,7 +958,7 @@
       cancelButtonText: 'Batal'
     }).then(result => {
       if (result.isConfirmed) {
-        fetch(`/backend/controllers/admin-ukm/keanggotaan.php?id_keanggotaan=${id}`, { method: 'DELETE' })
+        fetch(`${API_BASE}/backend/controllers/admin-ukm/keanggotaan.php?id_keanggotaan=${id}`, { method: 'DELETE' })
           .then(r => r.json())
           .then(res => {
             if (res.status === 'success') {
@@ -981,7 +982,7 @@
     const formData = new FormData(this);
     formData.append('id_ukm', id_ukm);
 
-    fetch('/backend/controllers/admin-ukm/keanggotaan.php', { method: 'POST', body: formData })
+    fetch(API_BASE + '/backend/controllers/admin-ukm/keanggotaan.php', { method: 'POST', body: formData })
       .then(r => r.json())
       .then(res => {
         if (res.status === 'success') {
@@ -1038,7 +1039,7 @@
       cancelButtonText: 'Batal'
     }).then(r => {
       if (r.isConfirmed) {
-        fetch('/backend/controllers/logout.php')
+        fetch(API_BASE + '/backend/controllers/logout.php')
           .then(() => window.location.href = '/index.html')
           .catch(() => window.location.href = '/index.html');
       }

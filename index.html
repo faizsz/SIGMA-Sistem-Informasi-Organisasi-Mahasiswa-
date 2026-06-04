@@ -382,8 +382,8 @@
 
 </div>
 
+<script src="/frontend/src/utils/config.js"></script>
 <script>
-  /* ══ DATA ══ */
   const ROLES = {
     mahasiswa: {
       label:    'Mahasiswa',
@@ -476,7 +476,7 @@
     hideError();
 
     try {
-      const res = await fetch('/backend/controllers/mahasiswa/login.php', {
+      const res = await fetch(API_BASE + '/backend/controllers/mahasiswa/login.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password }),

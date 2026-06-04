@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -7,6 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/frontend/src/styles/user/ukm_detail_not_registered.css">
     <link rel="stylesheet" href="/frontend/src/utils/navbar/navbar.css">
+  <script src="/frontend/src/utils/config.js"></script>
 </head>
 <body>
     <div id="navbar"></div>
@@ -372,7 +373,7 @@
     document.head.appendChild(styleSheet);
 
             if (idUkm) {
-                fetch(`/backend/controllers/mahasiswa/ukm_detail_not_registered.php?id_ukm=${idUkm}`)
+                fetch(`${API_BASE}/backend/controllers/mahasiswa/ukm_detail_not_registered.php?id_ukm=${idUkm}`)
                     .then(response => response.json())
                     .then(data => {
                         if (data.status === 'success') {
@@ -734,7 +735,7 @@ function createSlideHTML(timeline) {
         const idUkm = urlParams.get('id');
 
         try {
-            const response = await fetch(`/backend/controllers/mahasiswa/ukm_detail_not_registered.php?id=${idUkm}`);
+            const response = await fetch(`${API_BASE}/backend/controllers/mahasiswa/ukm_detail_not_registered.php?id=${idUkm}`);
             const result = await response.json();
             
             if (result.status === 'success' && result.data.timeline) {

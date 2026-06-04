@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <style>
@@ -180,6 +180,7 @@
             margin: 0 auto 2rem;
         }
     </style>
+  <script src="/frontend/src/utils/config.js"></script>
 </head>
 <body>
     <div id="navbar"></div>
@@ -235,7 +236,7 @@
                         throw new Error('ID UKM tidak ditemukan');
                     }
             
-                    const response = await fetch(`/backend/controllers/mahasiswa/cek-status-pendaftaran.php?id_ukm=${id_ukm}`);
+                    const response = await fetch(`${API_BASE}/backend/controllers/mahasiswa/cek-status-pendaftaran.php?id_ukm=${id_ukm}`);
                     const data = await response.json();
             
                     if (data.status === 'success' && data.data.catatan) {

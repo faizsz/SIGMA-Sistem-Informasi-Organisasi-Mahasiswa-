@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8">
@@ -179,6 +179,7 @@
             }
         }
     </style>
+  <script src="/frontend/src/utils/config.js"></script>
 </head>
 <body class="hold-transition">
     <div class="wrapper">
@@ -219,7 +220,7 @@
                 return;
             }
 
-            fetch(`/backend/controllers/mahasiswa/struktur_lengkap.php?id_ukm=${idUkm}`)
+            fetch(`${API_BASE}/backend/controllers/mahasiswa/struktur_lengkap.php?id_ukm=${idUkm}`)
                 .then(response => response.json())
                 .then(data => {
                     if (data.status === 'success') {

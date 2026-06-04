@@ -1,4 +1,4 @@
-document.getElementById('username').addEventListener('input', function() {
+﻿document.getElementById('username').addEventListener('input', function() {
     const errorMessageContainer = document.getElementById('errorMessageContainer');
     errorMessageContainer.style.display = 'none';
 });
@@ -65,7 +65,7 @@ document.getElementById('loginForm').addEventListener('submit', async function(e
     }
     
     try {
-        const response = await fetch('/backend/controllers/mahasiswa/login.php', {
+        const response = await fetch(API_BASE + '/backend/controllers/mahasiswa/login.php', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

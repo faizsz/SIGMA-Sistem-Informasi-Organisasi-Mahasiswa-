@@ -211,6 +211,7 @@
       .btn-icon span { display: none; }
     }
   </style>
+  <script src="/frontend/src/utils/config.js"></script>
 </head>
 <body>
 
@@ -399,7 +400,7 @@
     if (el) el.querySelector('h3').textContent = nama || '—';
   }
   function loadUkmProfile() {
-    fetch(`/backend/controllers/admin-ukm/profile.php?id_ukm=${id_ukm}`)
+    fetch(`${API_BASE}/backend/controllers/admin-ukm/profile.php?id_ukm=${id_ukm}`)
       .then(r => r.json()).then(d => updateSidebarUkmName(d.nama_ukm)).catch(() => {});
   }
 
@@ -641,7 +642,7 @@
   /* ── LOGOUT ── */
   function logout() {
     Swal.fire({title:'Keluar dari SIGMA?',icon:'question',showCancelButton:true,confirmButtonColor:'#F43F5E',cancelButtonColor:'#94A3B8',confirmButtonText:'Ya, keluar',cancelButtonText:'Batal'})
-      .then(r => { if (r.isConfirmed) fetch('/backend/controllers/logout.php').then(()=>location.href='/index.html').catch(()=>location.href='/index.html'); });
+      .then(r => { if (r.isConfirmed) fetch(API_BASE + '/backend/controllers/logout.php').then(()=>location.href='/index.html').catch(()=>location.href='/index.html'); });
   }
 
   /* ── INIT ── */

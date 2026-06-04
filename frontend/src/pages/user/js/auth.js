@@ -1,6 +1,6 @@
-document.addEventListener("DOMContentLoaded", function () {
+﻿document.addEventListener("DOMContentLoaded", function () {
         // Cek otentikasi ketika halaman dimuat
-        fetch('/backend/controllers/mahasiswa/auth.php')
+        fetch(API_BASE + '/backend/controllers/mahasiswa/auth.php')
             .then(response => response.json())
             .then(data => {
                 if (!data.authenticated) {

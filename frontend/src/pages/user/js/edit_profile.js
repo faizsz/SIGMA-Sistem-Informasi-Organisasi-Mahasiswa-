@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+﻿document.addEventListener('DOMContentLoaded', function() {
     loadProfileData();
 
     document.getElementById('editProfileForm').addEventListener('submit', function(e) {
@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', function() {
 // Load data profil
 async function loadProfileData() {
     try {
-        const response = await fetch('/backend/controllers/mahasiswa/profile/get_profile.php');
+        const response = await fetch(API_BASE + '/backend/controllers/mahasiswa/profile/get_profile.php');
         const data = await response.json();
         
         if (data.status === 'success') {
@@ -41,7 +41,7 @@ async function updateProfile() {
     const formData = new FormData(document.getElementById('editProfileForm'));
     
     try {
-        const response = await fetch('/backend/controllers/mahasiswa/profile/update_profile.php', {
+        const response = await fetch(API_BASE + '/backend/controllers/mahasiswa/profile/update_profile.php', {
             method: 'POST',
             body: formData
         });
@@ -80,7 +80,7 @@ async function changePassword() {
     const formData = new FormData(document.getElementById('changePasswordForm'));
     
     try {
-        const response = await fetch('/backend/controllers/mahasiswa/profile/change_password.php', {
+        const response = await fetch(API_BASE + '/backend/controllers/mahasiswa/profile/change_password.php', {
             method: 'POST',
             body: formData
         });

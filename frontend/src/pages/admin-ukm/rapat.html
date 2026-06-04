@@ -191,6 +191,7 @@
     }
     @media (max-width:480px) { .stats-row{grid-template-columns:1fr} .topbar{padding:0 16px} .admin-name{display:none} }
   </style>
+  <script src="/frontend/src/utils/config.js"></script>
 </head>
 <body>
 
@@ -371,7 +372,7 @@
     if(el) el.querySelector('h3').textContent=nama||'—';
   }
   function loadUkmProfile(){
-    fetch(`/backend/controllers/admin-ukm/profile.php?id_ukm=${id_ukm}`)
+    fetch(`${API_BASE}/backend/controllers/admin-ukm/profile.php?id_ukm=${id_ukm}`)
       .then(r=>r.json()).then(d=>updateSidebarUkmName(d.nama_ukm)).catch(()=>{});
   }
 
@@ -385,7 +386,7 @@
 
   /* ── LOAD ── */
   function loadRapat(){
-    fetch(`/backend/controllers/admin-ukm/rapat.php?id_ukm=${id_ukm}`)
+    fetch(`${API_BASE}/backend/controllers/admin-ukm/rapat.php?id_ukm=${id_ukm}`)
       .then(r=>r.json())
       .then(res=>{
         const data=res.status==='success'?res.data:(Array.isArray(res)?res:[]);
@@ -462,7 +463,7 @@
 
   /* ── KEGIATAN DROPDOWN ── */
   function loadKegiatanDropdown(){
-    return fetch(`/backend/controllers/admin-ukm/timeline.php?id_ukm=${id_ukm}`)
+    return fetch(`${API_BASE}/backend/controllers/admin-ukm/timeline.php?id_ukm=${id_ukm}`)
       .then(r=>r.json())
       .then(data=>{
         const sel=document.getElementById('id_timeline');
@@ -487,7 +488,7 @@
 
   /* ── EDIT ── */
   function editRapat(id){
-    fetch(`/backend/controllers/admin-ukm/rapat.php?id_rapat=${id}`)
+    fetch(`${API_BASE}/backend/controllers/admin-ukm/rapat.php?id_rapat=${id}`)
       .then(r=>r.json())
       .then(res=>{
         const d=res.status==='success'?res.data:res;
@@ -514,7 +515,7 @@
     e.preventDefault();
     const btn=document.getElementById('btn-submit');
     btn.disabled=true;btn.innerHTML='<i class="fas fa-spinner fa-spin"></i> Menyimpan…';
-    fetch('/backend/controllers/admin-ukm/rapat.php',{method:'POST',body:new FormData(this)})
+    fetch(API_BASE + '/backend/controllers/admin-ukm/rapat.php',{method:'POST',body:new FormData(this)})
       .then(r=>r.json())
       .then(res=>{
         if(res.status==='success'){Swal.fire({icon:'success',title:'Berhasil!',text:'Rapat berhasil disimpan',timer:1500,showConfirmButton:false});closeModal('modal-form');loadRapat();}
@@ -529,7 +530,7 @@
     Swal.fire({title:'Hapus rapat ini?',text:'Data rapat akan dihapus permanen.',icon:'warning',showCancelButton:true,confirmButtonColor:'#F43F5E',cancelButtonColor:'#94A3B8',confirmButtonText:'Ya, hapus',cancelButtonText:'Batal'})
       .then(r=>{
         if(r.isConfirmed){
-          fetch(`/backend/controllers/admin-ukm/rapat.php?id_rapat=${id}`,{method:'DELETE'})
+          fetch(`${API_BASE}/backend/controllers/admin-ukm/rapat.php?id_rapat=${id}`,{method:'DELETE'})
             .then(r=>r.json()).then(res=>{
               if(res.status==='success'){Swal.fire({icon:'success',title:'Terhapus!',timer:1500,showConfirmButton:false});loadRapat();}
               else Swal.fire({icon:'error',title:'Gagal!',text:res.message});
@@ -557,7 +558,7 @@
     document.getElementById('gallery-subtitle').textContent=judul;
     document.getElementById('gallery-grid').innerHTML='<p style="color:var(--text-soft);font-size:13px;">Memuat foto…</p>';
     document.getElementById('modal-gallery').classList.add('open');
-    fetch(`/backend/controllers/admin-ukm/rapat.php?id_rapat=${id}`)
+    fetch(`${API_BASE}/backend/controllers/admin-ukm/rapat.php?id_rapat=${id}`)
       .then(r=>r.json())
       .then(res=>{
         const dok=(res.status==='success'?res.data?.dokumentasi:null)||[];
@@ -577,7 +578,7 @@
 
   function logout(){
     Swal.fire({title:'Keluar dari SIGMA?',icon:'question',showCancelButton:true,confirmButtonColor:'#F43F5E',cancelButtonColor:'#94A3B8',confirmButtonText:'Ya, keluar',cancelButtonText:'Batal'})
-      .then(r=>{if(r.isConfirmed)fetch('/backend/controllers/logout.php').then(()=>window.location.href='/index.html').catch(()=>window.location.href='/index.html');});
+      .then(r=>{if(r.isConfirmed)fetch(API_BASE + '/backend/controllers/logout.php').then(()=>window.location.href='/index.html').catch(()=>window.location.href='/index.html');});
   }
 
   /* ── INIT ── */

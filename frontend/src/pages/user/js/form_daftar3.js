@@ -95,7 +95,7 @@ document.getElementById('registrationForm').addEventListener('submit', async fun
         submitButton.disabled = true;
         submitButton.textContent = 'Mengunggah...';
 
-        const response = await fetch('/backend/controllers/mahasiswa/submit_tahap3.php', {
+        const response = await fetch(API_BASE + '/backend/controllers/mahasiswa/submit_tahap3.php', {
             method: 'POST',
             body: formData
         });

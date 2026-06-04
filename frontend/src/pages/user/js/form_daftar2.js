@@ -14,7 +14,7 @@
     }
 
     try {
-        const response = await fetch(`/backend/controllers/mahasiswa/get_divisi_ukm.php?id_ukm=${id_ukm}`);
+        const response = await fetch(`${API_BASE}/backend/controllers/mahasiswa/get_divisi_ukm.php?id_ukm=${id_ukm}`);
         const result = await response.json();
 
         if (result.status === 'success') {
@@ -101,7 +101,7 @@ document.getElementById('registrationForm').addEventListener('submit', async fun
         submitButton.disabled = true;
         submitButton.textContent = 'Mengunggah...';
 
-        const submitResponse = await fetch('/backend/controllers/submit_tahap2.php', {
+        const submitResponse = await fetch(API_BASE + '/backend/controllers/submit_tahap2.php', {
             method: 'POST',
             body: formData
         });

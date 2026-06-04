@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         sessionStorage.setItem('current_ukm_id', id_ukm);
 
         // Check authentication status first
-        const authResponse = await fetch('/backend/controllers/mahasiswa/auth.php');
+        const authResponse = await fetch(API_BASE + '/backend/controllers/mahasiswa/auth.php');
         const authData = await authResponse.json();
 
         if (!authData.authenticated) {
@@ -29,11 +29,11 @@ document.addEventListener('DOMContentLoaded', async function() {
         }
 
         // Check registration period
-        const periodResponse = await fetch(`/backend/controllers/mahasiswa/cek-periode-pendaftaran.php?id_ukm=${id_ukm}`);
+        const periodResponse = await fetch(`${API_BASE}/backend/controllers/mahasiswa/cek-periode-pendaftaran.php?id_ukm=${id_ukm}`);
         const periodData = await periodResponse.json();
 
         // Check registration status
-        const statusResponse = await fetch(`/backend/controllers/mahasiswa/cek-status-pendaftaran.php?id_ukm=${id_ukm}`);
+        const statusResponse = await fetch(`${API_BASE}/backend/controllers/mahasiswa/cek-status-pendaftaran.php?id_ukm=${id_ukm}`);
         const statusData = await statusResponse.json();
 
         const daftarBtn = document.querySelector('.registration-cta button');
@@ -94,7 +94,7 @@ async function handleDaftar() {
             throw new Error('ID UKM tidak ditemukan');
         }
 
-        const response = await fetch(`/backend/controllers/mahasiswa/cek-status-pendaftaran.php?id_ukm=${id_ukm}`);
+        const response = await fetch(`${API_BASE}/backend/controllers/mahasiswa/cek-status-pendaftaran.php?id_ukm=${id_ukm}`);
         const statusData = await response.json();
 
         if (statusData.status === 'success') {

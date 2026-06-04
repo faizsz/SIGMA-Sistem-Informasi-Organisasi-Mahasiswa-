@@ -441,6 +441,7 @@ $id_ukm = $_SESSION['id_ukm'];
       .admin-name { display: none; }
     }
   </style>
+  <script src="/frontend/src/utils/config.js"></script>
 </head>
 <body>
 
@@ -662,7 +663,7 @@ $id_ukm = $_SESSION['id_ukm'];
 
   /* ── LOAD UKM PROFILE (untuk nama di sidebar) ── */
   function loadUkmProfile() {
-    fetch(`/backend/controllers/admin-ukm/profile.php?id_ukm=${id_ukm}`)
+    fetch(`${API_BASE}/backend/controllers/admin-ukm/profile.php?id_ukm=${id_ukm}`)
       .then(r => r.json())
       .then(data => {
         updateSidebarUkmName(data.nama_ukm);
@@ -675,7 +676,7 @@ $id_ukm = $_SESSION['id_ukm'];
 
   /* ── LOAD DASHBOARD DATA ── */
   function loadDashboard() {
-    fetch('/backend/controllers/admin-ukm/get-dashboard.php')
+    fetch(API_BASE + '/backend/controllers/admin-ukm/get-dashboard.php')
       .then(r => r.json())
       .then(data => {
         animateCount(document.getElementById('total-anggota'),   data.totalAnggota   || 0);
@@ -719,7 +720,7 @@ $id_ukm = $_SESSION['id_ukm'];
       cancelButtonText: 'Batal'
     }).then(r => {
       if (r.isConfirmed) {
-        fetch('/backend/controllers/logout.php')
+        fetch(API_BASE + '/backend/controllers/logout.php')
           .then(() => window.location.href = '/index.html')
           .catch(() => window.location.href = '/index.html');
       }
