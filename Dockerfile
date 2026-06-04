@@ -14,4 +14,4 @@ ENV PORT=80
 
 EXPOSE 80
 
-CMD php -S 0.0.0.0:${PORT} -t .
+CMD php -S 0.0.0.0:${PORT} -t . router.php
