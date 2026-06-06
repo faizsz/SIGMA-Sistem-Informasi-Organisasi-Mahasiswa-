@@ -12,6 +12,13 @@ WORKDIR /var/www/html
 # Copy semua file project
 COPY . .
 
+# Database environment variables (Aiven)
+ENV DB_HOST=sigma-db-faizakmall-d.j.aivencloud.com
+ENV DB_PORT=22892
+ENV DB_NAME=defaultdb
+ENV DB_USER=avnadmin
+ENV DB_PASS=AVNS_m62ILEHcEWIeqFEcHyZ
+
 # Default port (Railway override via env)
 ENV PORT=80
 
