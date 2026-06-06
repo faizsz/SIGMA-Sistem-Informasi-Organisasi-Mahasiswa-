@@ -12,16 +12,10 @@ WORKDIR /var/www/html
 # Copy semua file project
 COPY . .
 
-# Database environment variables (Aiven)
-ENV DB_HOST=sigma-db-faizakmall-d.j.aivencloud.com
-ENV DB_PORT=22892
-ENV DB_NAME=defaultdb
-ENV DB_USER=avnadmin
-ENV DB_PASS=AVNS_m62ILEHcEWIeqFEcHyZ
-
 # Default port (Railway override via env)
 ENV PORT=80
 
 EXPOSE 80
 
-CMD ["sh", "-c", "php -S 0.0.0.0:${PORT} -t . router.php"]
+# Startup: tulis env vars ke .env file lalu start PHP server
+CMD ["sh", "-c", "echo \"DB_HOST=${DB_HOST}\nDB_PORT=${DB_PORT}\nDB_NAME=${DB_NAME}\nDB_USER=${DB_USER}\nDB_PASS=${DB_PASS}\" > /var/www/html/.env && php -S 0.0.0.0:${PORT} -t . router.php"]

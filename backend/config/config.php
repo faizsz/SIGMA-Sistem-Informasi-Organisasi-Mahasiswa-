@@ -1,5 +1,18 @@
 <?php
-// Helper: ambil env variable dari getenv, $_ENV, atau $_SERVER
+// Load .env file jika ada (untuk Railway yang tulis env ke file saat startup)
+$envFile = __DIR__ . '/../../.env';
+if (file_exists($envFile)) {
+    $lines = file($envFile, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+    foreach ($lines as $line) {
+        if (str_contains($line, '=')) {
+            [$key, $val] = explode('=', $line, 2);
+            $_ENV[trim($key)] = trim($val);
+            putenv(trim($key) . '=' . trim($val));
+        }
+    }
+}
+
+// Helper: ambil env variable
 function env($key, $default = '') {
     return getenv($key) ?: ($_ENV[$key] ?? ($_SERVER[$key] ?? $default));
 }
